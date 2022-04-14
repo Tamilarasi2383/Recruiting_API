@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Recruiting_API
+{
+    public partial class Candidate_Viewindia : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        [System.Web.Services.WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static string DownloadFile(string fileName)
+        {
+            //Set the File Folder Path.
+            string path = HttpContext.Current.Server.MapPath("~/Files/");
+
+            //Read the File as Byte Array.
+            byte[] bytes = File.ReadAllBytes(path + fileName);
+
+            //Convert File to Base64 string and send to Client.
+            return Convert.ToBase64String(bytes, 0, bytes.Length);
+        }
+    }
+}

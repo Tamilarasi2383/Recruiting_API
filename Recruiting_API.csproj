@@ -1,0 +1,1327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{789A6B94-716B-451A-ACEB-359C8CEF05B8}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Recruiting_API</RootNamespace>
+    <AssemblyName>Recruiting_API</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44317</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddJobcode.aspx.cs">
+      <DependentUpon>AddJobcode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddJobcode.aspx.designer.cs">
+      <DependentUpon>AddJobcode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddJobcode_Ind.aspx.cs">
+      <DependentUpon>AddJobcode_Ind.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddJobcode_Ind.aspx.designer.cs">
+      <DependentUpon>AddJobcode_Ind.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Analytics.aspx.cs">
+      <DependentUpon>Analytics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Analytics.aspx.designer.cs">
+      <DependentUpon>Analytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Billing.aspx.cs">
+      <DependentUpon>Billing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Billing.aspx.designer.cs">
+      <DependentUpon>Billing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Candidate.aspx.cs">
+      <DependentUpon>Candidate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Candidate.aspx.designer.cs">
+      <DependentUpon>Candidate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateIndia.aspx.cs">
+      <DependentUpon>CandidateIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateIndia.aspx.designer.cs">
+      <DependentUpon>CandidateIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateList.aspx.cs">
+      <DependentUpon>CandidateList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateList.aspx.designer.cs">
+      <DependentUpon>CandidateList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateListindia.aspx.cs">
+      <DependentUpon>CandidateListindia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateListindia.aspx.designer.cs">
+      <DependentUpon>CandidateListindia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateOverview.aspx.cs">
+      <DependentUpon>CandidateOverview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateOverview.aspx.designer.cs">
+      <DependentUpon>CandidateOverview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateOverviewindia.aspx.cs">
+      <DependentUpon>CandidateOverviewindia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateOverviewindia.aspx.designer.cs">
+      <DependentUpon>CandidateOverviewindia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateSearch.aspx.cs">
+      <DependentUpon>CandidateSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateSearch.aspx.designer.cs">
+      <DependentUpon>CandidateSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CandidateSearchIndia.aspx.cs">
+      <DependentUpon>CandidateSearchIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CandidateSearchIndia.aspx.designer.cs">
+      <DependentUpon>CandidateSearchIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Candidate_View.aspx.cs">
+      <DependentUpon>Candidate_View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Candidate_View.aspx.designer.cs">
+      <DependentUpon>Candidate_View.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Candidate_Viewindia.aspx.cs">
+      <DependentUpon>Candidate_Viewindia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Candidate_Viewindia.aspx.designer.cs">
+      <DependentUpon>Candidate_Viewindia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Client.aspx.cs">
+      <DependentUpon>Client.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Client.aspx.designer.cs">
+      <DependentUpon>Client.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Clientlist.aspx.cs">
+      <DependentUpon>Clientlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Clientlist.aspx.designer.cs">
+      <DependentUpon>Clientlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClosureCandidateList.aspx.cs">
+      <DependentUpon>ClosureCandidateList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClosureCandidateList.aspx.designer.cs">
+      <DependentUpon>ClosureCandidateList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClosureCandidateListIndia.aspx.cs">
+      <DependentUpon>ClosureCandidateListIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClosureCandidateListIndia.aspx.designer.cs">
+      <DependentUpon>ClosureCandidateListIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAC\Cls_login.cs" />
+    <Compile Include="DAC\Cls_testapi.cs" />
+    <Compile Include="Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedbackIndia.aspx.cs">
+      <DependentUpon>FeedbackIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FeedbackIndia.aspx.designer.cs">
+      <DependentUpon>FeedbackIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FollowupPage.aspx.cs">
+      <DependentUpon>FollowupPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FollowupPage.aspx.designer.cs">
+      <DependentUpon>FollowupPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FollowuppageIndia.aspx.cs">
+      <DependentUpon>FollowuppageIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FollowuppageIndia.aspx.designer.cs">
+      <DependentUpon>FollowuppageIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgetPassword.aspx.cs">
+      <DependentUpon>ForgetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgetPassword.aspx.designer.cs">
+      <DependentUpon>ForgetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="General.aspx.cs">
+      <DependentUpon>General.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General.aspx.designer.cs">
+      <DependentUpon>General.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GenuinityCheck.aspx.cs">
+      <DependentUpon>GenuinityCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GenuinityCheck.aspx.designer.cs">
+      <DependentUpon>GenuinityCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="JobList.aspx.cs">
+      <DependentUpon>JobList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JobList.aspx.designer.cs">
+      <DependentUpon>JobList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JobListindia.aspx.cs">
+      <DependentUpon>JobListindia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JobListindia.aspx.designer.cs">
+      <DependentUpon>JobListindia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManaagerFeedback.aspx.cs">
+      <DependentUpon>ManaagerFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManaagerFeedback.aspx.designer.cs">
+      <DependentUpon>ManaagerFeedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerDashboard.aspx.cs">
+      <DependentUpon>ManagerDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerDashboard.aspx.designer.cs">
+      <DependentUpon>ManagerDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerdashboardIndia.aspx.cs">
+      <DependentUpon>ManagerdashboardIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerdashboardIndia.aspx.designer.cs">
+      <DependentUpon>ManagerdashboardIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerFeedbackpage.aspx.cs">
+      <DependentUpon>ManagerFeedbackpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerFeedbackpage.aspx.designer.cs">
+      <DependentUpon>ManagerFeedbackpage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerFeedbackpageIndia.aspx.cs">
+      <DependentUpon>ManagerFeedbackpageIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerFeedbackpageIndia.aspx.designer.cs">
+      <DependentUpon>ManagerFeedbackpageIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerJobList.aspx.cs">
+      <DependentUpon>ManagerJobList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerJobList.aspx.designer.cs">
+      <DependentUpon>ManagerJobList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerJobListindia.aspx.cs">
+      <DependentUpon>ManagerJobListindia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerJobListindia.aspx.designer.cs">
+      <DependentUpon>ManagerJobListindia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerPerformanceviewIndia.aspx.cs">
+      <DependentUpon>ManagerPerformanceviewIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagerPerformanceviewIndia.aspx.designer.cs">
+      <DependentUpon>ManagerPerformanceviewIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MgrDashboardtree.aspx.cs">
+      <DependentUpon>MgrDashboardtree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MgrDashboardtree.aspx.designer.cs">
+      <DependentUpon>MgrDashboardtree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbConnection.cs" />
+    <Compile Include="Models\Master.cs" />
+    <Compile Include="Models\TSql.cs" />
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecruiterDashboard.aspx.cs">
+      <DependentUpon>RecruiterDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecruiterDashboard.aspx.designer.cs">
+      <DependentUpon>RecruiterDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RecruiterDashboard_Ind.aspx.cs">
+      <DependentUpon>RecruiterDashboard_Ind.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecruiterDashboard_Ind.aspx.designer.cs">
+      <DependentUpon>RecruiterDashboard_Ind.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RecruiterPerformance.aspx.cs">
+      <DependentUpon>RecruiterPerformance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecruiterPerformance.aspx.designer.cs">
+      <DependentUpon>RecruiterPerformance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RecruiterPerformanceIndia.aspx.cs">
+      <DependentUpon>RecruiterPerformanceIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecruiterPerformanceIndia.aspx.designer.cs">
+      <DependentUpon>RecruiterPerformanceIndia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingApp.Master.cs">
+      <DependentUpon>RecruitingApp.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecruitingApp.Master.designer.cs">
+      <DependentUpon>RecruitingApp.Master</DependentUpon>
+    </Compile>
+    <Compile Include="RegionTime.aspx.cs">
+      <DependentUpon>RegionTime.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegionTime.aspx.designer.cs">
+      <DependentUpon>RegionTime.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SelectRegion.aspx.cs">
+      <DependentUpon>SelectRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SelectRegion.aspx.designer.cs">
+      <DependentUpon>SelectRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_CandidateStatusMaster.aspx.cs">
+      <DependentUpon>Superadmin_CandidateStatusMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_CandidateStatusMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_CandidateStatusMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin_ClientMaster.aspx.cs">
+      <DependentUpon>SuperAdmin_ClientMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin_ClientMaster.aspx.designer.cs">
+      <DependentUpon>SuperAdmin_ClientMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_ConfigDashboard.aspx.cs">
+      <DependentUpon>Superadmin_ConfigDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_ConfigDashboard.aspx.designer.cs">
+      <DependentUpon>Superadmin_ConfigDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_CurrencyMaster.aspx.cs">
+      <DependentUpon>Superadmin_CurrencyMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_CurrencyMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_CurrencyMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_Dashboard.aspx.cs">
+      <DependentUpon>Superadmin_Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_Dashboard.aspx.designer.cs">
+      <DependentUpon>Superadmin_Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_DesignationMaster.aspx.cs">
+      <DependentUpon>Superadmin_DesignationMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_DesignationMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_DesignationMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_EmploymenttypeMaster.aspx.cs">
+      <DependentUpon>Superadmin_EmploymenttypeMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_EmploymenttypeMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_EmploymenttypeMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_ImagesMaster.aspx.cs">
+      <DependentUpon>Superadmin_ImagesMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_ImagesMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_ImagesMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_JobStatusMaster.aspx.cs">
+      <DependentUpon>Superadmin_JobStatusMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_JobStatusMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_JobStatusMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_LevelMaster.aspx.cs">
+      <DependentUpon>Superadmin_LevelMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_LevelMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_LevelMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_LocationMaster.aspx.cs">
+      <DependentUpon>Superadmin_LocationMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_LocationMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_LocationMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_MailIdMaster.aspx.cs">
+      <DependentUpon>Superadmin_MailIdMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_MailIdMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_MailIdMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_MenuListMaster.aspx.cs">
+      <DependentUpon>Superadmin_MenuListMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_MenuListMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_MenuListMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_MenuMaster.aspx.cs">
+      <DependentUpon>Superadmin_MenuMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_MenuMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_MenuMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_PriorityMaster.aspx.cs">
+      <DependentUpon>Superadmin_PriorityMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_PriorityMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_PriorityMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_QuestionHeadingMaster.aspx.cs">
+      <DependentUpon>Superadmin_QuestionHeadingMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_QuestionHeadingMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_QuestionHeadingMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_QuestionMaster.aspx.cs">
+      <DependentUpon>Superadmin_QuestionMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_QuestionMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_QuestionMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_RegionMaster.aspx.cs">
+      <DependentUpon>Superadmin_RegionMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_RegionMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_RegionMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_RoleMaster.aspx.cs">
+      <DependentUpon>Superadmin_RoleMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_RoleMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_RoleMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_SkillandCertificationMaster.aspx.cs">
+      <DependentUpon>Superadmin_SkillandCertificationMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_SkillandCertificationMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_SkillandCertificationMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_SpecilizationMaster.aspx.cs">
+      <DependentUpon>Superadmin_SpecilizationMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_SpecilizationMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_SpecilizationMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_TargetListMaster.aspx.cs">
+      <DependentUpon>Superadmin_TargetListMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_TargetListMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_TargetListMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_TargetMaster.aspx.cs">
+      <DependentUpon>Superadmin_TargetMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_TargetMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_TargetMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_UserList.aspx.cs">
+      <DependentUpon>Superadmin_UserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_UserList.aspx.designer.cs">
+      <DependentUpon>Superadmin_UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_Userprofile.aspx.cs">
+      <DependentUpon>Superadmin_Userprofile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_Userprofile.aspx.designer.cs">
+      <DependentUpon>Superadmin_Userprofile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Superadmin_WorkTypeMaster.aspx.cs">
+      <DependentUpon>Superadmin_WorkTypeMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Superadmin_WorkTypeMaster.aspx.designer.cs">
+      <DependentUpon>Superadmin_WorkTypeMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestPage.aspx.cs">
+      <DependentUpon>TestPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestPage.aspx.designer.cs">
+      <DependentUpon>TestPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor.aspx.cs">
+      <DependentUpon>Vendor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendor.aspx.designer.cs">
+      <DependentUpon>Vendor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendorlist.aspx.cs">
+      <DependentUpon>Vendorlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendorlist.aspx.designer.cs">
+      <DependentUpon>Vendorlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VendorSearch.aspx.cs">
+      <DependentUpon>VendorSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VendorSearch.aspx.designer.cs">
+      <DependentUpon>VendorSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm3.aspx.cs">
+      <DependentUpon>WebForm3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm3.aspx.designer.cs">
+      <DependentUpon>WebForm3.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AddJobcode.aspx" />
+    <Content Include="AddJobcode_Ind.aspx" />
+    <Content Include="Analytics.aspx" />
+    <Content Include="AppScripts\Candidate.js" />
+    <Content Include="AppScripts\CandidateIndia.js" />
+    <Content Include="AppScripts\CandidateList.js" />
+    <Content Include="AppScripts\CandidateListindia.js" />
+    <Content Include="AppScripts\CandidateOverview.js" />
+    <Content Include="AppScripts\CandidateOverviewindia.js" />
+    <Content Include="AppScripts\CandidateProfile.js" />
+    <Content Include="AppScripts\CandidateSearch.js" />
+    <Content Include="AppScripts\CandidateSearchIndia.js" />
+    <Content Include="AppScripts\CandidatestatusMaster.js" />
+    <Content Include="AppScripts\Candidate_Viewindia.js" />
+    <Content Include="AppScripts\Client.js" />
+    <Content Include="AppScripts\Clientlist.js" />
+    <Content Include="AppScripts\ClosureCandidateList.js" />
+    <Content Include="AppScripts\ClosureCandidateListIndia.js" />
+    <Content Include="AppScripts\CurrencyMaster.js" />
+    <Content Include="AppScripts\dashboardIndia.js" />
+    <Content Include="AppScripts\DesignationMaster.js" />
+    <Content Include="AppScripts\EmploymenttypeMaster.js" />
+    <Content Include="AppScripts\Feedback.js" />
+    <Content Include="AppScripts\FeedbackIndia.js" />
+    <Content Include="AppScripts\Followup.js" />
+    <Content Include="AppScripts\FollowupIndia.js" />
+    <Content Include="AppScripts\ForgotPassword.js" />
+    <Content Include="AppScripts\GenuinityCheck.js" />
+    <Content Include="AppScripts\ImagesMaster.js" />
+    <Content Include="AppScripts\Job.js" />
+    <Content Include="AppScripts\JobIndia.js" />
+    <Content Include="AppScripts\Joblist.js" />
+    <Content Include="AppScripts\JoblistIndia.js" />
+    <Content Include="AppScripts\JobStatusMaster.js" />
+    <Content Include="AppScripts\LevelMaster.js" />
+    <Content Include="AppScripts\LocationMaster.js" />
+    <Content Include="AppScripts\MailMaster.js" />
+    <Content Include="AppScripts\ManagerFeedback.js" />
+    <Content Include="AppScripts\ManagerFeedbackIndia.js" />
+    <Content Include="AppScripts\ManagerJobList.js" />
+    <Content Include="AppScripts\ManagerJobListIndia.js" />
+    <Content Include="AppScripts\MenuList.js" />
+    <Content Include="AppScripts\MenuMaster.js" />
+    <Content Include="AppScripts\MgrDashboard.js" />
+    <Content Include="AppScripts\MgrDashboardIndia.js" />
+    <Content Include="AppScripts\PriorityMaster.js" />
+    <Content Include="AppScripts\QuestionHeadingMaster.js" />
+    <Content Include="AppScripts\QuestionMaster.js" />
+    <Content Include="AppScripts\RecruiterFeedback.js" />
+    <Content Include="AppScripts\RecruiterFeedbackIndia.js" />
+    <Content Include="AppScripts\RegionMaster.js" />
+    <Content Include="AppScripts\RegionTime.js" />
+    <Content Include="AppScripts\RoleMaster.js" />
+    <Content Include="AppScripts\SkillandCertificationMaster.js" />
+    <Content Include="AppScripts\SpecilizationMaster.js" />
+    <Content Include="AppScripts\startPage.js" />
+    <Content Include="AppScripts\Table.js" />
+    <Content Include="AppScripts\TargetList.js" />
+    <Content Include="AppScripts\TargetMaster.js" />
+    <Content Include="AppScripts\UserList.js" />
+    <Content Include="AppScripts\Userprofile.js" />
+    <Content Include="AppScripts\Vendor.js" />
+    <Content Include="AppScripts\Vendorlist.js" />
+    <Content Include="AppScripts\VendorSearch.js" />
+    <Content Include="AppScripts\WorktypeMaster.js" />
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="assets\css\Common.css" />
+    <Content Include="assets\css\demo-styles.css" />
+    <Content Include="assets\css\example-styles.css" />
+    <Content Include="assets\css\nucleo-icons.css" />
+    <Content Include="assets\css\nucleo-svg.css" />
+    <Content Include="assets\css\Select2.css" />
+    <Content Include="assets\css\soft-ui-dashboard-pro.css" />
+    <Content Include="assets\css\soft-ui-dashboard.css" />
+    <Content Include="assets\css\soft-ui-dashboard.min.css" />
+    <Content Include="assets\fonts\nucleo-icons.svg" />
+    <Content Include="assets\img\apple-icon.png" />
+    <Content Include="assets\img\bruce-mars.jpg" />
+    <Content Include="assets\img\curved-images\Cover15.jpg" />
+    <Content Include="assets\img\curved-images\Cover16.jpg" />
+    <Content Include="assets\img\curved-images\curved-8.jpg" />
+    <Content Include="assets\img\curved-images\curved0.jpg" />
+    <Content Include="assets\img\curved-images\curved14.jpg" />
+    <Content Include="assets\img\curved-images\curved6.jpg" />
+    <Content Include="assets\img\curved-images\white-curved.jpeg" />
+    <Content Include="assets\img\curved-images\Whitw-Cover.jpg" />
+    <Content Include="assets\img\favicon.png" />
+    <Content Include="assets\img\home-decor-1.jpg" />
+    <Content Include="assets\img\home-decor-2.jpg" />
+    <Content Include="assets\img\home-decor-3.jpg" />
+    <Content Include="assets\img\illustrations\rocket-white.png" />
+    <Content Include="assets\img\ivana-square.jpg" />
+    <Content Include="assets\img\ivancik.jpg" />
+    <Content Include="assets\img\kal-visuals-square.jpg" />
+    <Content Include="assets\img\logo-ct.png" />
+    <Content Include="assets\img\logos\mastercard.png" />
+    <Content Include="assets\img\logos\visa.png" />
+    <Content Include="assets\img\marie.jpg" />
+    <Content Include="assets\img\shapes\waves-white.svg" />
+    <Content Include="assets\img\small-logos\Candidate.png" />
+    <Content Include="assets\img\small-logos\dashboard.png" />
+    <Content Include="assets\img\small-logos\Jobs.png" />
+    <Content Include="assets\img\small-logos\logo-atlassian.svg" />
+    <Content Include="assets\img\small-logos\logo-invision.svg" />
+    <Content Include="assets\img\small-logos\logo-jira.svg" />
+    <Content Include="assets\img\small-logos\logo-slack.svg" />
+    <Content Include="assets\img\small-logos\logo-spotify.svg" />
+    <Content Include="assets\img\small-logos\logo-webdev.svg" />
+    <Content Include="assets\img\small-logos\logo-xd.svg" />
+    <Content Include="assets\img\small-logos\Report.png" />
+    <Content Include="assets\img\small-logos\Vendor.png" />
+    <Content Include="assets\img\team-1.jpg" />
+    <Content Include="assets\img\team-2.jpg" />
+    <Content Include="assets\img\team-3.jpg" />
+    <Content Include="assets\img\team-4.jpg" />
+    <Content Include="assets\js\Common.js" />
+    <Content Include="assets\js\core\bootstrap.min.js" />
+    <Content Include="assets\js\core\popper.min.js" />
+    <Content Include="AppScripts\dashboard.js" />
+    <Content Include="assets\js\db_js\db_login.js" />
+    <Content Include="assets\js\jquery.js" />
+    <Content Include="assets\js\jquery.multi-select.js" />
+    <Content Include="assets\js\jquery.multi-select.min.js" />
+    <Content Include="assets\js\plugins.js" />
+    <Content Include="assets\js\plugins\bootstrap-notify.js" />
+    <Content Include="assets\js\plugins\Chart.extension.js" />
+    <Content Include="assets\js\plugins\chartjs.min.js" />
+    <Content Include="assets\js\plugins\dropzone.min.js" />
+    <Content Include="assets\js\plugins\flatpickr.min.js" />
+    <Content Include="assets\js\plugins\nouislider.min.js" />
+    <Content Include="assets\js\plugins\perfect-scrollbar.min.js" />
+    <Content Include="assets\js\plugins\smooth-scrollbar.min.js" />
+    <Content Include="assets\js\plugins\wNumb.js" />
+    <Content Include="assets\js\plugins\wNumb.min.js" />
+    <Content Include="assets\js\prop\commondatastore.js" />
+    <Content Include="assets\js\prop\loader.js" />
+    <Content Include="assets\js\prop\modal_deco.js" />
+    <Content Include="assets\js\Pro_js\bootstrap.min.js" />
+    <Content Include="assets\js\Pro_js\choices.min.js" />
+    <Content Include="assets\js\Pro_js\dragula.min.js" />
+    <Content Include="assets\js\Pro_js\jkanban.js" />
+    <Content Include="assets\js\Pro_js\popper.min.js" />
+    <Content Include="assets\js\Pro_js\quill.min.js" />
+    <Content Include="assets\js\Pro_js\smooth-scrollbar.min.js" />
+    <Content Include="assets\js\soft-ui-dashboard.js" />
+    <Content Include="assets\js\soft-ui-dashboard.min.js" />
+    <Content Include="Billing.aspx" />
+    <Content Include="Candidate.aspx" />
+    <Content Include="CandidateIndia.aspx" />
+    <Content Include="CandidateList.aspx" />
+    <Content Include="CandidateListindia.aspx" />
+    <Content Include="CandidateOverview.aspx" />
+    <Content Include="CandidateOverviewindia.aspx" />
+    <Content Include="CandidateSearch.aspx" />
+    <Content Include="CandidateSearchIndia.aspx" />
+    <Content Include="Candidate_View.aspx" />
+    <Content Include="Candidate_Viewindia.aspx" />
+    <Content Include="Client.aspx" />
+    <Content Include="Clientlist.aspx" />
+    <Content Include="ClosureCandidateList.aspx" />
+    <Content Include="ClosureCandidateListIndia.aspx" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Dashboard.aspx" />
+    <Content Include="error\09c48f84-b3d9-4624-8a88-7a051246d519.txt" />
+    <Content Include="error\443f741e-bcca-4704-bac5-dcc5616c977d.txt" />
+    <Content Include="error\81fd5d56-eeef-4772-b17b-96ddbcc3e9d8.txt" />
+    <Content Include="error\8ca00e4a-94fe-470d-b3f9-1e0725b72aa9.txt" />
+    <Content Include="error\92db5bb7-d846-4985-a68a-029dd78fcdd6.txt" />
+    <Content Include="error\edac40ce-039e-49d0-92f1-e13d0ef67f70.txt" />
+    <Content Include="favicon.ico" />
+    <Content Include="Feedback.aspx" />
+    <Content Include="FeedbackIndia.aspx" />
+    <Content Include="FollowupPage.aspx" />
+    <Content Include="FollowuppageIndia.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="ForgetPassword.aspx" />
+    <Content Include="General.aspx" />
+    <Content Include="GenuinityCheck.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\Comp.png" />
+    <Content Include="Images\Default.png" />
+    <Content Include="Images\Default_job.png" />
+    <Content Include="Images\Employees\krish.png" />
+    <Content Include="Images\Employees\MohanSir.png" />
+    <Content Include="Images\Employees\Narmadha.png" />
+    <Content Include="Images\Employees\Nirmal.png" />
+    <Content Include="Images\Employees\Rex.png" />
+    <Content Include="Images\Employees\Sherin.png" />
+    <Content Include="Images\Employees\Shruthi.png" />
+    <Content Include="Images\eMSS.png" />
+    <Content Include="Images\emss_Logo.png" />
+    <Content Include="Images\Feedback.png" />
+    <Content Include="Images\Flag-india.png" />
+    <Content Include="Images\GB.png" />
+    <Content Include="Images\GCP.png" />
+    <Content Include="Images\GCP_job.png" />
+    <Content Include="Images\Global.png" />
+    <Content Include="Images\Globe2.gif" />
+    <Content Include="Images\hunt crew Fav.png" />
+    <Content Include="Images\hunt crew logo.png" />
+    <Content Include="Images\Hunt Crew.png" />
+    <Content Include="Images\Hunt-Logo.png" />
+    <Content Include="Images\ID.png" />
+    <Content Include="Images\idlogo.png" />
+    <Content Include="Images\in-rupee.png" />
+    <Content Include="Images\IN.png" />
+    <Content Include="Images\IT_Job.jpg" />
+    <Content Include="Images\JAVA.png" />
+    <Content Include="Images\Java_job.png" />
+    <Content Include="Images\LinkedIn-no.png" />
+    <Content Include="Images\LinkedIn.png" />
+    <Content Include="Images\loader.gif" />
+    <Content Include="Images\loader1.gif" />
+    <Content Include="Images\Microsoft.png" />
+    <Content Include="Images\MicrosoftAzure.png" />
+    <Content Include="Images\Microsoft_job.png" />
+    <Content Include="Images\No Record.png" />
+    <Content Include="Images\No Records Found.png" />
+    <Content Include="Images\No-Image.png" />
+    <Content Include="Images\Resume.png" />
+    <Content Include="Images\Salesforce.png" />
+    <Content Include="Images\Salesforce_job.png" />
+    <Content Include="Images\Sap.png" />
+    <Content Include="Images\SAP_job.png" />
+    <Content Include="Images\team.png" />
+    <Content Include="Images\teams.png" />
+    <Content Include="Images\Techwaukee Logo.png" />
+    <Content Include="Images\united-states.png" />
+    <Content Include="Images\Upload-Resume-icon.png" />
+    <Content Include="Images\us-dollar.png" />
+    <Content Include="Images\US.png" />
+    <Content Include="Images\userimg.png" />
+    <Content Include="Images\Visa.png" />
+    <Content Include="JobList.aspx" />
+    <Content Include="JobListindia.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="ManaagerFeedback.aspx" />
+    <Content Include="ManagerDashboard.aspx" />
+    <Content Include="ManagerdashboardIndia.aspx" />
+    <Content Include="ManagerFeedbackpage.aspx" />
+    <Content Include="ManagerFeedbackpageIndia.aspx" />
+    <Content Include="ManagerJobList.aspx" />
+    <Content Include="ManagerJobListindia.aspx" />
+    <Content Include="ManagerPerformanceviewIndia.aspx" />
+    <Content Include="MgrDashboardtree.aspx" />
+    <Content Include="Profile.aspx" />
+    <Content Include="RecruiterDashboard.aspx" />
+    <Content Include="RecruiterDashboard_Ind.aspx" />
+    <Content Include="RecruiterPerformance.aspx" />
+    <Content Include="RecruiterPerformanceIndia.aspx" />
+    <Content Include="RegionTime.aspx" />
+    <Content Include="Report.aspx" />
+    <Content Include="ResetPassword.aspx" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="assets\css\soft-ui-dashboard.css.map" />
+    <Content Include="assets\fonts\nucleo-icons.eot" />
+    <Content Include="assets\fonts\nucleo-icons.ttf" />
+    <Content Include="assets\fonts\nucleo-icons.woff" />
+    <Content Include="assets\fonts\nucleo-icons.woff2" />
+    <Content Include="assets\fonts\nucleo.eot" />
+    <Content Include="assets\fonts\nucleo.ttf" />
+    <Content Include="assets\fonts\nucleo.woff" />
+    <Content Include="assets\fonts\nucleo.woff2" />
+    <Content Include="assets\js\soft-ui-dashboard.js.map" />
+    <Content Include="assets\scss\soft-ui-dashboard.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\avatars\_avatar-group.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\avatars\_avatar.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\bootstrap-grid.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\bootstrap-utilities.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\bootstrap.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_floating-labels.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_form-check.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_form-control.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_form-range.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_form-select.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_form-text.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_input-group.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_labels.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\forms\_validation.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_clearfix.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_colored-links.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_position.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_ratio.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_stretched-link.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_text-truncation.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\helpers\_visually-hidden.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_alert.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_buttons.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_caret.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_color-scheme.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_container.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_deprecate.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_forms.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_gradients.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_grid.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_image.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_list-group.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_lists.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_pagination.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_resize.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_table-variants.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_transition.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_utilities.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\mixins\_visually-hidden.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\utilities\_api.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\vendor\_rfs.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_accordion.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_alert.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_badge.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_breadcrumb.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_button-group.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_buttons.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_card.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_carousel.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_close.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_containers.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_dropdown.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_forms.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_functions.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_grid.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_helpers.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_images.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_list-group.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_mixins.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_modal.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_nav.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_navbar.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_offcanvas.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_pagination.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_popover.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_progress.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_reboot.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_root.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_spinners.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_tables.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_toasts.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_tooltip.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_transitions.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_type.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_utilities.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\bootstrap\_variables.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\breadcrumbs\_breadcrumb.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\cards\card-background.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\custom\_styles.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\custom\_variables.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_form-check.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_form-select.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_form-switch.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_forms.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_input-group.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_inputs.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\forms\_labels.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\mixins\mixins.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\mixins\_hover.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\mixins\_social-buttons.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\theme.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_animations.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_avatars.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_breadcrumb.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_cards.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_dropdowns.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_fixed-plugin.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_form-switch.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_header.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_info-areas.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_misc.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_navbar-vertical.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_navbar.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_pagination.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_rtl.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_social-buttons.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_table.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_timeline.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\variables\_utilities.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_alert.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_badge.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_buttons.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_cards.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_dropdown.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_dropup.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_fixed-plugin.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_footer.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_forms.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_gradients.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_header.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_info-areas.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_misc.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_nav.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_navbar-vertical.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_navbar.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_pagination.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_popovers.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_progress.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_rtl.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_social-buttons.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_tables.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_timeline.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_tooltips.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_typography.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_utilities.scss" />
+    <Content Include="assets\scss\soft-ui-dashboard\_variables.scss" />
+    <Content Include="Scripts\js\jquery-1.3.2.min.js" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\jquery.galleryview-1.1.js" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\jquery.timers-1.1.2.js" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\themes\custom\next.png" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\themes\custom\panel-nav-next.png" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\themes\custom\panel-nav-prev.png" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\themes\custom\pointer-down.png" />
+    <Content Include="Scripts\js\jquery-galleryview-1.1\themes\custom\prev.png" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\js\style.css" />
+    <Content Include="Scripts\Select2.js" />
+    <Content Include="SelectRegion.aspx" />
+    <Content Include="Superadmin_CandidateStatusMaster.aspx" />
+    <Content Include="SuperAdmin_ClientMaster.aspx" />
+    <Content Include="Superadmin_ConfigDashboard.aspx" />
+    <Content Include="Superadmin_CurrencyMaster.aspx" />
+    <Content Include="Superadmin_Dashboard.aspx" />
+    <Content Include="Candidate\Resume\Venkatesh_RelievingLetter.docx" />
+    <Content Include="Candidate\Resume\Whomsoever.docx" />
+    <Content Include="Superadmin_MenuListMaster.aspx" />
+    <Content Include="Superadmin_QuestionHeadingMaster.aspx" />
+    <Content Include="Superadmin_QuestionMaster.aspx" />
+    <Content Include="Superadmin_TargetListMaster.aspx" />
+    <Content Include="Superadmin_UserList.aspx" />
+    <Content Include="WebForm1.aspx" />
+    <Content Include="Candidate\Driving Licence\doc-4.pdf" />
+    <Content Include="Candidate\Driving Licence\GSTR-3B Computation.pdf" />
+    <Content Include="Candidate\Driving Licence\H1B_ Rakesh Thalluri.pdf" />
+    <Content Include="Candidate\Driving Licence\Krishna Resume %281%29.docx" />
+    <Content Include="Candidate\Driving Licence\TaxInvoiceTN1212206AD80551 %282%29.pdf" />
+    <Content Include="WebForm2.aspx" />
+    <Content Include="WebForm3.aspx" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="RecruitingApp.Master" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Superadmin_DesignationMaster.aspx" />
+    <Content Include="Superadmin_EmploymenttypeMaster.aspx" />
+    <Content Include="Superadmin_ImagesMaster.aspx" />
+    <Content Include="Superadmin_JobStatusMaster.aspx" />
+    <Content Include="Superadmin_LevelMaster.aspx" />
+    <Content Include="Superadmin_LocationMaster.aspx" />
+    <Content Include="Superadmin_MailIdMaster.aspx" />
+    <Content Include="Superadmin_MenuMaster.aspx" />
+    <Content Include="Superadmin_PriorityMaster.aspx" />
+    <Content Include="Superadmin_RegionMaster.aspx" />
+    <Content Include="Superadmin_RoleMaster.aspx" />
+    <Content Include="Superadmin_SkillandCertificationMaster.aspx" />
+    <Content Include="Superadmin_SpecilizationMaster.aspx" />
+    <Content Include="Superadmin_TargetMaster.aspx" />
+    <Content Include="Superadmin_Userprofile.aspx" />
+    <Content Include="Superadmin_WorkTypeMaster.aspx" />
+    <Content Include="TestPage.aspx" />
+    <Content Include="Vendor.aspx" />
+    <Content Include="Vendorlist.aspx" />
+    <Content Include="VendorSearch.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Candidate\Aadhar_India\" />
+    <Folder Include="Candidate\Other Documents\" />
+    <Folder Include="Candidate\OtherDocuments_India\" />
+    <Folder Include="Candidate\PAN_India\" />
+    <Folder Include="Candidate\Resume_India\" />
+    <Folder Include="Candidate\Visa\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49332</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44317/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
