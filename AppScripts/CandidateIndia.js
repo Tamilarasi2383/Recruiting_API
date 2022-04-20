@@ -409,7 +409,22 @@ function successCallBack(key, value) {
             setSession("corporationname", resData.corporationname);
             setSession("employeradderinformation", resData.employeradderinformation);
             //setSession("candidateRemark", resData.candidateRemark);
-            
+            genuinity = resData.genuinityStatus;
+
+            if (genuinity == "true") {
+                $('input[name="chkgencheck"]').prop("checked", true);
+                document.getElementById("div_genuinity").style.display = "block";
+                document.getElementById("btnGenuinity").style.display = "none";
+
+            }
+
+            else if (genuinity == "false") {
+                document.getElementById("div_genuinity").style.display = "none";
+                document.getElementById("btnGenuinity").style.display = "block";
+            }
+
+
+
             if (resData.jobcode == $('#hdnJobid').val()) {
                 $("#lblmsg1").text("This Candidate is already assigned to the same job.");
                 $("#lblmsg2").text("");
@@ -430,9 +445,22 @@ function successCallBack(key, value) {
             $("#lblmsg2").text("");
             document.getElementById("div_continue").style.display = "none";
             $("#check").modal('show');
+            genuinity = resData.genuinityStatus;
+            if (genuinity == "true") {
+                $('input[name="chkgencheck"]').prop("checked", true);
+                document.getElementById("div_genuinity").style.display = "block";
+                document.getElementById("btnGenuinity").style.display = "none";
+
+            }
+
+            else if (genuinity == "false") {
+                document.getElementById("div_genuinity").style.display = "none";
+                document.getElementById("btnGenuinity").style.display = "block";
+            }
+
             enableControls();
         }
-
+        stopLoader();
     }
 
     else if (key == "EMPLCHECK") {
@@ -562,6 +590,20 @@ function successCallBack(key, value) {
             $('#btnRtr').css('display', 'none');
             $('#chkRTR').prop('disabled', false);
         }
+        genuinity = resData.genuinityStatus;
+
+        if (genuinity == "true") {
+            $('input[name="chkgencheck"]').prop("checked", true);
+            document.getElementById("div_genuinity").style.display = "block";
+            document.getElementById("btnGenuinity").style.display = "none";
+
+        }
+
+        else if (genuinity == "false") {
+            document.getElementById("div_genuinity").style.display = "none";
+            document.getElementById("btnGenuinity").style.display = "block";
+        }
+       
         stopLoader();
     }
 
@@ -669,6 +711,20 @@ function successCallBack(key, value) {
             $('#btnRtr').css('display', 'none');
             $('#chkRTR').prop('disabled', false);
         }
+        genuinity = resData.genuinityStatus;
+
+        if (genuinity == "true") {
+            $('input[name="chkgencheck"]').prop("checked", true);
+            document.getElementById("div_genuinity").style.display = "block";
+            document.getElementById("btnGenuinity").style.display = "none";
+
+        }
+
+        else if (genuinity == "false") {
+            document.getElementById("div_genuinity").style.display = "none";
+            document.getElementById("btnGenuinity").style.display = "block";
+        }
+        
         stopLoader();
     }
 
@@ -680,6 +736,7 @@ function successCallBack(key, value) {
             $("#msgpopup").modal('show');
             $("#btnOk").attr("onclick", "btnhidden()");
         }
+
         stopLoader();
     }
 
@@ -2084,4 +2141,50 @@ function getLength(ctrl1,ctrl2) {
     }
     
     
+}
+function gotoGenuinity() {
+
+    var url = window.location.href;
+    hashes = url.split("?")[1];
+    if (hashes != null) {
+
+        var hash = hashes.split('&');
+        if (hash.length == 1) {
+            var params1 = hash[0].split("=");
+            window.location.href = 'GenuinityCheck.aspx?id=' + params1[1];
+        }
+
+        else if (hash.length > 1) {
+            var params1 = hash[1].split("=");
+            window.location.href = 'GenuinityCheck.aspx?id=' + params1[1];
+        }
+    }
+
+
+}
+function openGenuinity() {
+
+    if (Validatecandidate() == true) {
+        genuinity = "true";
+
+        setSession("CName", $("#txtCandidatename").val());
+        setSession("CMail", $("#txtEmailid").val());
+        setSession("CPhone", $("#txtContactno").val());
+
+        setSession("CJobName", $("#lblJobtitle1").text());
+        setSession("CJobDuration", $("#lblDuration1").text());
+        setSession("CJobType", $("#lblType1").text());
+        setSession("CJobWorkType", $("#lblWorkingtype1").text());
+
+        if ($("#hdnCandStatus").val() != "") {
+            saveCandidate('Save');
+        }
+        else if ($("#hdnCandStatus").val() == "") {
+            saveCandidate('Draft');
+        }
+
+        //setSession("CJobImg", $("#imgJob1").attr(src));
+
+
+    }
 }

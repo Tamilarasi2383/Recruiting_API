@@ -438,6 +438,20 @@ function successCallBack(key, value) {
             //$('#btnApplydur').css('display', 'none');
             document.getElementById("div_continue").style.display = "none";
             $("#check").modal('show');
+            genuinity = resData.genuinityStatus;
+
+            if (genuinity == "true") {
+                $('input[name="chkgencheck"]').prop("checked", true);
+                document.getElementById("div_genuinity").style.display = "block";
+                document.getElementById("btnGenuinity").style.display = "none";
+
+            }
+
+            else if (genuinity == "false") {
+                document.getElementById("div_genuinity").style.display = "none";
+                document.getElementById("btnGenuinity").style.display = "block";
+            }
+
             enableControls();
         }
         stopLoader();

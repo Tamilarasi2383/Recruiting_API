@@ -90,7 +90,7 @@
                                     </a>
                                 </li>
                                 <li class="pe-5" onclick="tablist2('visa');" style="cursor: pointer;">
-                                    <a class=" mb-0 px-0 py-1" id="anchvisa" data-bs-toggle="tab" role="tab" aria-selected="false">ID & Visa
+                                    <a class=" mb-0 px-0 py-1" id="anchvisa" data-bs-toggle="tab" role="tab" aria-selected="false">ID & visa
                                     </a>
                                 </li>
                                 <li class="pe-5" onclick="tablist3('Education');" style="cursor: pointer;">
@@ -130,12 +130,12 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <label class="mt-4">Overall Rating:</label>
+                                <label class="mt-4">LinkedIn Rating:</label>
                                 <label id="lbllinkedInovrallrating">0</label>
                                 <label>/</label><label id="lbllinkedInoverallvalue">100</label>
 
                             </div>
-                            <div class="row">
+                            <div class="row" style="display:none">
                                 <div class="col-12">
                                     <label>Overall Percentage:</label>
                                     <label id="lbllinkedInpercentage">0</label><label>%</label>
@@ -170,12 +170,12 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <label class="mt-4">Overall Rating:</label>
+                                <label class="mt-4">Id & Visa Rating:</label>
                                 <label id="lblvisaovrallrating">0</label>
                                 <label>/</label><label id="lblvisaoverallvalue">100</label>
 
                             </div>
-                            <div class="row">
+                            <div class="row" style="display:none">
                                 <div class="col-12">
                                     <label>Overall Percentage:</label>
                                     <label id="lblvisapercentage">0</label><label>%</label>
@@ -209,16 +209,15 @@
                         </div>
                         <div class=" pt-0" style="height: 400px; overflow: scroll; overflow-x: hidden;" id="div_Education_question">
                            
-
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <label class="mt-4">Overall Rating:</label>
+                            <label class="mt-4">Education Rating:</label>
                             <label id="lblEducationovrallrating">0</label>
                             <label>/</label><label id="lblEducationoverallvalue">100</label>
                         </div>
-                        <div class="row">
+                        <div class="row" style="display:none">
                             <div class="col-12">
                                 <label>Overall Percentage:</label>
                                 <label id="lblEducationpercentage">0</label><label>%</label>
@@ -233,16 +232,23 @@
                     </div>
                 </div>
                 <div class="container-fluid" id="rating" >
-                    <div class="" id="Rating" style="display:none;" tabindex="0">
-                        <div class="card-header ps-0 pt-0">
-                            <h5>Rating</h5>
-                           
+                    <div class="" id="Rating" style="display:block;" tabindex="0">
+                         <div class="card-header pe-0 ps-0 pt-0">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>System Check Rating</h5>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <label id="lblerrormsgRating" style="color:red;display:none">Fill All the Fields</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-6">
-                                    <label>System Rating</label>
+                                    <label>Overall System Rating</label>
                                     </div>
                                 <div class="col-6">
                                     <h4 class="font-weight-bold"  style="float:right;" ><span class="text-dark" id="value">0</span></h4>
@@ -271,22 +277,67 @@
                         <div class="col-md-12">
                             <label>Recruiter Comments</label>
                             <div class="form-group">
-                                <textarea class="form-control" id="txtRatingcommentsQ1" rows="3"></textarea>
+                                <div class="form-control col-md-12 text-right" style="background-color:#e9ecef;padding: 0px;">
+                <i class="fa fa-pen top-0" onclick="disabletxtarea()" id="editicon"></i>
+                <textarea class="form-control" id="txtRatingcommentsQ1" rows="3"  disabled> Did he/she have an active LinkedIn account</textarea>
+                                 </div>       
                             </div>
                         </div>
+                         <div class="ms-auto my-auto mt-lg-0 mt-4">
+            <div class="ms-auto my-auto">
+                <div class="modal fade" id="msgpopup1" tabindex="-1" aria-hidden="true" style="display:none;">
+                    <div class="modal-dialog" style="max-width: 300px !important; margin-top: 15rem !important;">
+                        <div class="modal-content">
 
+                            <div class="col-md-12 mt-3 text-center">
+                                <p class="mb-0 h6"><span id="div-message1">Are You Want to Edit This</span></p>
+                            </div>
+
+                            <div class=" pt-0" style="border-top: none; padding: 0px 20px 10px 20px; display: block;" id="div_Confirm">
+                                <center>
+                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize text-left" id="btnYes" onclick="btnEdit()">Yes</button>
+                                    <button type="button" id="btnNo" class="btn bg-gradient-secondary mb-0 btn-resize" onclick="btnhide()">No</button>
+                                </center>
+                            </div>
+                            <div class=" pt-0" style="border-top: none; padding: 0px 20px 10px 20px; display: none;" id="div_Success">
+                                <center>
+                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize text-left" id="btnOk" onclick="$('#msgpopup').modal('hide');">OK</button>
+                                </center>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                         <div class="row">
                             <div class="button-row d-flex mt-4 col-12">
-                                <button class="btn bg-gradient-light mb-0  me-lg-0 me-auto mt-lg-0 mt-2 btn-resize" type="button" onclick="" title="Prev">Prev</button>
+                                <button class="btn bg-gradient-light mb-0  me-lg-0 me-auto mt-lg-0 mt-2 btn-resize" type="button" onclick="return validateratingprev()" title="Prev">Prev</button>
                                 <button class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2 btn-resize" onclick="return saveGenuinity('linkedIn','visa','Education')" id="btnsubmit" type="button" title="Submit">Submit</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+            </div>
+        </div>
+        <div class="ms-auto my-auto mt-lg-0 mt-4">
+            <div class="ms-auto my-auto">
+                <div class="modal fade" id="msgpopup" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 300px !important; margin-top: 15rem !important;">
+                        <div class="modal-content">
 
-               
+                            <div class="col-md-12 mt-3 text-center">
+                                <p class="mb-0 h6"><span id="div-message">Save successfully</span></p>
+                            </div>
 
+                            <div class="modal-footer pt-0 text-center" style="border-top: none;">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize" id="btnOk" onclick="closepopup();">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -302,7 +353,7 @@
     <script src="assets/js/plugins/nouislider.min.js"></script>
     <script src="assets/js/plugins/wNumb.js"></script>
     <script src="assets/js/plugins/wNumb.min.js"></script>
-
+    
    <script type="text/javascript">
        var sliderFormat = document.getElementById('slider-format');
        noUiSlider.create(sliderFormat, {

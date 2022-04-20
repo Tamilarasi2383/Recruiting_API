@@ -20064,8 +20064,10 @@ namespace Recruiting_API.DAC
 
             string strquery = "";
 
-            strquery = @"SELECT [GenuinityCheckID],[QuestionHeadingid],[Questionid],[Answer],[Comments]
-                                                        FROM [GenuinityCheck] where [candidateid]=" + candidateid;
+            strquery = @"SELECT [GenuinityCheckID],gen.QuestionHeadingid,gen.Questionid,gen.Answer,[Comments],Question
+                         FROM [GenuinityCheck] gen join Question_Master que on gen.Questionid=que.Questionid 
+                         and gen.QuestionHeadingid=que.QuestionHeadingid where [candidateid]=" + candidateid;
+
             SqlDataReader _read = _sql.doRead(strquery);
 
             while (_read.Read())
@@ -20076,6 +20078,7 @@ namespace Recruiting_API.DAC
                 genuinity.Questionid = _read[2].ToString();
                 genuinity.Answer = _read[3].ToString();
                 genuinity.Comments = _read[4].ToString();
+                genuinity.Question = _read[5].ToString();
 
                 candidateGenuinity.genuinityChecks.Add(genuinity);
             }

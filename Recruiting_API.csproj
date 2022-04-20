@@ -344,6 +344,13 @@
     <Compile Include="GenuinityCheck.aspx.designer.cs">
       <DependentUpon>GenuinityCheck.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GenuinityCheckIndia.aspx.cs">
+      <DependentUpon>GenuinityCheckIndia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GenuinityCheckIndia.aspx.designer.cs">
+      <DependentUpon>GenuinityCheckIndia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -766,6 +773,7 @@
     <Content Include="AppScripts\FollowupIndia.js" />
     <Content Include="AppScripts\ForgotPassword.js" />
     <Content Include="AppScripts\GenuinityCheck.js" />
+    <Content Include="AppScripts\GenuinityCheckIndia.js" />
     <Content Include="AppScripts\ImagesMaster.js" />
     <Content Include="AppScripts\Job.js" />
     <Content Include="AppScripts\JobIndia.js" />
@@ -919,6 +927,7 @@
     <Content Include="ForgetPassword.aspx" />
     <Content Include="General.aspx" />
     <Content Include="GenuinityCheck.aspx" />
+    <Content Include="GenuinityCheckIndia.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\Comp.png" />
     <Content Include="Images\Default.png" />

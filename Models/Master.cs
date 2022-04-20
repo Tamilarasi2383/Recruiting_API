@@ -1021,6 +1021,7 @@ public class GenuinityCheckQuestion
     public string QuestionHeadingid { get; set; }
     public string Questionid { get; set; }
     public string Answer { get; set; }
+    public string Question { get; set; }
     public string Comments { get; set; }
 }
 

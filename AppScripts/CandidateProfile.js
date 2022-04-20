@@ -16,6 +16,8 @@
         if (hash.length == 1) {
             var params = hash[0].split("=");
             getcandidateProfile(params[1]);
+            getCandidateQuestionlist(params[1]);
+
         }
         else if (hash.length > 1) {
             var params = hash[0].split("=");
@@ -112,6 +114,7 @@ function successCallBack(key, value) {
 
         //feedback(resData._lstFeedback);
         assignedJobs(resData._lstAssignedJob);
+        stopLoader();
     }
 
     else if (key == "CANDFEED") {
@@ -124,8 +127,238 @@ function successCallBack(key, value) {
         stopLoader();
 
     }
+    if (key == "QUESTIONCANDLIST") {
+
+        setCandidateQuestion(resData.genuinityChecks);
+
+        document.getElementById("lblsystemrating").innerHTML = resData.genuinityCheckRating.Overallsystemrating;
+        document.getElementById("lblrecruiterrating").innerHTML = resData.genuinityCheckRating.Overallrecruiterrating;
+        document.getElementById("lblrecruitercomments").innerHTML = resData.genuinityCheckRating.Remarks;
+        stopLoader();
+
+    }
 
 }
+
+function getCandidateQuestionlist(val) {
+
+    var strdata = { "candidateid": val };
+
+    common_api_ajax_request("api/getCandidateGenuinityQuestion", "QUESTIONCANDLIST", strdata);
+
+}
+
+
+
+function setCandidateQuestion(data) {
+    var str = "";
+    var str1 = "";
+    var str2 = "";
+    var str3 = "";
+    var j = 1;
+    var k = 1;
+    var l = 1;
+    var h = "Yes";
+    var n = "No";
+
+    $.each(data, function (key, item) {
+
+        if (item.QuestionHeadingid == "15000") {
+
+            if (item.Answer == "10000") {
+                str += "<div class='card-body p-3'>" +
+                    "<div class='col-12'>" +
+                    "<div class='row'>" +
+                    "<div class='col-10'>" +
+                    "<label id='lbllinkedInquestion" + j + "' class='cls1'style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color: #f0f0f0;'>" + j + "." + " " +
+                    item.Question +
+                    "</label>" +
+                    "</div>" +
+                    "<div class='col-2'>" +
+                    "<label class='form-label' style='display:block;' id='lbllinkedInanswer" + j + "' style='color:green'>" +
+                    "<label style='color:#fefeff;width:35px;margin:15px 0 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-success shadow text-center' >" + "Yes" + "</label>" +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-12'>" +
+                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>"
+                    + item.Comments +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+            }
+
+
+            else if (item.Answer == "10001") {
+                str += "<div class='card-body p-3'>" +
+                    "<div class='col-12'>" +
+                    "<div class='row'>" +
+                    "<div class='col-10'>" +
+                    "<label  id='lbllinkedInquestion" + j + "'style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color:#f0f0f0;' >" + j + "." + " " +
+                    item.Question +
+                    "</label>" +
+                    "</div>" +
+                    "<div class='col-2'>" +
+                    "<label class='form-label' style='display:block;' id='lbllinkedInanswer" + j + "'>" +
+                    "<label style='color:#fefeff;width:35px;margin:15px 0px 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-danger shadow text-center' >" + "No" + "</label>" +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-12'>" +
+                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>"
+                    + item.Comments +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+            }
+
+        }
+        j++;
+    });
+
+
+
+    $("#div_linkedIn_question").append(str);
+
+    $.each(data, function (key, item) {
+
+        if (item.QuestionHeadingid == "15001") {
+            if (item.Answer == "10000") {
+                str1 += "<div class='card-body p-3'>" +
+                    "<div class='col-12'>" +
+                    "<div class='row'>" +
+                    "<div class='col-10'>" +
+                    "<label  id='lblvisaquestion" + k + "' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color:#f0f0f0;'>" + k + "." + " " +
+                    item.Question +
+                    "</label>" +
+                    "</div>" +
+                    "<div class='col-2'>" +
+                    "<label class='form-label' style='display:block;' id='lblvisaanswer" + k + "' style='color:green'>" +
+                    "<label style='color:#fefeff;width:35px;margin:15px 0px 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-success shadow text-center' >" + "Yes" + "</label>" +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-12'>" +
+                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 0px 19px;'>"
+                    + item.Comments +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+            }
+            else if (item.Answer == "10001") {
+                str1 += "<div class='card-body p-3'>" +
+                    "<div class='col-12'>" +
+                    "<div class='row'>" +
+                    "<div class='col-10'>" +
+                    "<label  id='lblvisaquestion" + k + "' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color:#f0f0f0;'>" + k + "." + " " +
+                    item.Question +
+                    "</label>" +
+                    "</div>" +
+                    "<div class='col-2'>" +
+                    "<label class='form-label' style='display:block;' id='lblvisaanswer" + k + "' style='color:red'>" +
+                    "<label style='color:#fefeff;width:35px;margin:15px 0px 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-danger shadow text-center' >" + "No" + "</label>" +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-12'>" +
+                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 0px 19px;'>"
+                    + item.Comments +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+            }
+            k++;
+        }
+        //AnswerCall(item);
+    }
+    );
+    $("#div_visa_question").append(str1);
+
+    $.each(data, function (key, item) {
+
+        if (item.QuestionHeadingid == "15002") {
+
+            if (item.Answer == "10000") {
+
+                str2 += "<div class='card-body p-3'>" +
+                    "<div class='col-12'>" +
+                    "<div class='row'>" +
+                    "<div class='col-10'>" +
+                    "<label  id='lblvisaquestion" + l + "' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color:#f0f0f0;'>" + l + "." + " " +
+                    item.Question +
+                    "</label>" +
+                    "</div>" +
+                    "<div class='col-2'>" +
+                    "<label class='form-label' style='display:block;' id='lblvisaanswer" + l + "' style='color:green'>" +
+                    "<label style='color:#fefeff;width:35px;margin:15px 0px 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-success shadow text-center' >" + "Yes" + "</label>" +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-12' >" +
+                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 0px 19px;'>"
+                    + item.Comments +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+            }
+            else if (item.Answer == "10001") {
+                str2 += "<div class='card-body p-3'>" +
+                    "<div class='col-12'>" +
+                    "<div class='row'>" +
+                    "<div class='col-10'>" +
+                    "<label id='lblEducationquestion" + l + "' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:border-radius: 20px 19px 19px 0px;';background-color:#f0f0f0;'>" + l + "." + " " +
+                    item.Question +
+                    "</label>" +
+                    "</div>" +
+                    "<div class='col-2'>" +
+                    "<label class='form-label' style='display:block;' id='lblEducationanswer" + l + "'>" +
+                    "<label style='color:#fefeff;width:35px;margin:15px 0px 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-danger shadow text-center' >" + "No" + "</label>" +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='row'>" +
+                    "<div class='col-12'>" +
+
+                    "<label id='txtvisacommentsQ'  style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>"
+                    + item.Comments +
+                    "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+            }
+            l++;
+        }
+    });
+    $("#div_Education_question").append(str2);
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 function getcandidateFeedback(jobVal) {
 
@@ -671,13 +904,13 @@ function feedback(sdata) {
 
         $('#lblEccreatedondate').text(sdata.ECcomgivenon);
         $('#lblECscreatedontime').text(sdata.ECcomgiventime + " EST");
-        
-        if (sdata.ECcomupdatedon != "") {            
+
+        if (sdata.ECcomupdatedon != "") {
             $('#div_ECupdatedon').css('display', 'block');
             $('#lblEccreatedondate').text(sdata.ECcomupdatedon);
             $('#lblECscreatedontime').text(sdata.ECcomupdatedtime + " EST");
         }
-        
+
         $('#p_BPname').text("Approved by " + sdata.BPcomgivenby);
         $("#p_BPname").addClass("text-success");
         $('#p_BPname').css('display', 'block');

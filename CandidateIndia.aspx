@@ -5,6 +5,7 @@
 
 
     <style>
+
         .change_color{
             font-size: 14px;
             white-space: nowrap;
@@ -719,11 +720,23 @@
                     </div>
 
                     <div class="col-md-12 mt-3">
-                        <div class="form-check">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="chkRTR" disabled="disabled" onclick="enableTLButton();">
                             <label class="custom-control-label" for="customCheck1">Received RTR Confirmation</label>
                         </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div class="form-check" style="float: right;display:none;" id="div_genuinity">
+                                    <input class="form-check-input" type="checkbox" value="" name="chkgencheck" id="chkgencheck" disabled="disabled" >
+                                    <%--<a class="custom-control-label" for="customCheck1" style="color:#0400ff;">Genuinity Check</a>--%>
+                                    <label class="custom-control-label" for="customCheck1" style="color:#0400ff;" onclick="gotoGenuinity()">Genuinity Check</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                     
                      <div id="div_job2">
                     <div class="d-flex px-2 py-1 mt-2">
                         <div>
@@ -734,6 +747,7 @@
                             <p style="cursor: pointer;"><span class="text-xs text-secondary mb-0" id="lblDuration2"></span> | <span class="text-xs text-secondary mb-0" id="lblType2"></span> | <span class="text-xs text-secondary mb-0" id="lblWorkingtype2"></span></p>
                         </div>
                     </div>
+
                          </div>
 
                     <div class=" justify-content-end mt-4">
@@ -741,6 +755,7 @@
                         <button type="button" name="button" class="btn bg-gradient-warning m-0 ms-2 btn-resize" id="btnSave" onclick="saveCandidate('Save');" style="float: right;">Save</button>
                         <button type="button" name="button" class="btn bg-gradient-success m-0 ms-2 btn-resize" id="btnSubmittl" onclick="saveCandidate('Submit');" style="float: right;display:none;">Submit to TL</button>
                         <button type="button" name="button" class="btn bg-gradient-warning m-0 ms-2 btn-resize" id="btnDraft" style="float: right;" onclick="saveCandidate('Draft');">Draft</button>
+                        <button type="button" name="button" class="btn bg-gradient-success m-0 ms-2 btn-resize" id="btnGenuinity" onclick="openGenuinity();" style="float: right;display:block;">Genuinity Check</button>
                         <button type="button" name="button" class="btn bg-gradient-secondary m-0 ms-2 btn-resize" id="btnPipeline" style="float: right;display:none;" onclick="saveCandidate('Pipeline');">Pipeline</button>
                         <button type="button" name="button" class="btn bg-gradient-primary m-0 ms-2 btn-resize" id="btnRtr" data-bs-toggle="modal" data-bs-target="#" style="float: right;" onclick="getRTRdata();">Get RTR</button>
 

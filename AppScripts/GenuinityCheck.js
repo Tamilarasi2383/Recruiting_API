@@ -15,7 +15,7 @@
     //$("#imgJob").attr("src", getSession('CJobImg'));
 
     getQuestionlist(getSession("RegionValue"));
-    
+
     var url = window.location.href;
     hashes = url.split("?")[1];
     if (hashes != null) {
@@ -28,7 +28,7 @@
             getCandidateQuestionlist(params1[1]);
         }
 
-    }    
+    }
 
 });
 
@@ -43,7 +43,6 @@ function validateEducationprev() {
     document.getElementById("visa").style.display = "block";
     tablist('visa');
 }
-
 
 function validateratingprev() {
     document.getElementById("Rating").style.display = "none";
@@ -161,8 +160,6 @@ function Validationtxtarea(tabname, tablecount) {
 
 }
 
-
-
 var emptyarr1 = new Array;
 
 function txtvalidation(tabname, lblname) {
@@ -271,9 +268,8 @@ function CalculateOvrallRatinglinkedIn(tabname, tablecount) {
             if (Ans == "Yes") {
                 markarr.push(document.getElementById(mark + j).innerHTML);
             }
-
-
         }
+
         else if (document.getElementById(radbtnNo + j).checked == true) {
             if (Ans == "No") {
                 markarr.push(document.getElementById(mark + j).innerHTML);
@@ -305,8 +301,6 @@ function CalculateOvrallRatinglinkedIn(tabname, tablecount) {
 
 }
 
-
-
 function createlinkedInDiv(data) {
 
     var str = "";
@@ -321,7 +315,7 @@ function createlinkedInDiv(data) {
 
             str += "<div class='col-12'>" +
                 "<div class='row'>" +
-                "<div class='col-8'>" +
+                "<div class='col-7'>" +
                 //"<label>" + j + ".</label>" +
                 "<label class='form-label' id='lbllinkedInquestion" + j + "'>" + j + "." + " " +
                 item.Question +
@@ -335,20 +329,26 @@ function createlinkedInDiv(data) {
                 item.Mark +
                 "</label>" +
                 "</div>" +
-                "<div class='col-4'>" +
+                "<div class='col-5'>" +
                 "<div class='row' style='border-radius: 10px;margin: 0px 40px 7px 0px;' id='div_errorlinkedInQNo" + j + "'>" +
-                "<div class='col-6'>" +
+                "<div class='col-4'>" +
                 "<div class='form-check mb-0 mt-1'>" +
                 "<input class='form-check-input' type='radio' value='10000' name='radlinkedInANo" + j + "' id='radlinkedInYesQNo" + j + "' onclick=validateQNo('linkedIn','" + j + "','" + data.length + "')>" +
                 "<label class='custom-control-label' for='customRadio1'>Yes</label>" +
                 "</div>" +
                 "</div>" +
-                "<div class='col-6'>" +
+                "<div class='col-4'>" +
                 "<div class='form-check mb-0 mt-1'>" +
                 "<input class='form-check-input' type='radio' value='10001' name='radlinkedInANo" + j + "' id='radlinkedInNoQNo" + j + "' onclick=validateQNo('linkedIn','" + j + "','" + data.length + "')>" +
                 "<label class='custom-control-label' for='customRadio1'>No</label>" +
                 "</div>" +
                 "</div>" +
+                "<div class='col-4'>" +
+                "<div class='form-control col-md-12 text-right' style='background-color:#e9ecef;padding: 0px;'>" +
+                "<i class='fa fa-pen top-0'>"+"</i > "+
+                "</div>" +
+                "</div>" +
+                
                 "</div>" +
                 "</div>" +
                 "</div>" +
@@ -494,7 +494,7 @@ function getQuestionlist(val) {
 }
 
 function getCandidateQuestionlist(val) {
-   
+
     var strdata = { "candidateid": val };
 
     common_api_ajax_request("api/getCandidateGenuinityQuestion", "QUESTIONCANDLIST", strdata);
@@ -527,8 +527,11 @@ function successCallBack(key, value) {
         $("#msgpopup").modal('show');
     }
 
-    else if (key =="QUESTIONCANDLIST") {
+    else if (key == "QUESTIONCANDLIST") {
         setCandidateQuestion(resData.genuinityChecks);
+        document.getElementById("value1").innerHTML = resData.genuinityCheckRating.Overallrecruiterrating;
+        document.getElementById("txtRatingcommentsQ1").value = resData.genuinityCheckRating.Remarks;
+
     }
 
 }
@@ -769,26 +772,161 @@ function tablist4() {
 
 
 function setCandidateQuestion(data) {
+    var tabname;
     var j = 1;
+    var k = 1;
+    var l = 1;
+    var markarr = new Array;
+    var markarr1 = new Array;
+    var markarr2 = new Array;
+
     $.each(data, function (key, item) {
 
         if (item.QuestionHeadingid == "15000") {
 
-            if (item.Questionid == $("#lbllinkedInQuestionId"+j).text()) {
+            tabname = "linkedIn";
+        }
+        else if (item.QuestionHeadingid == "15001") {
+            tabname = "visa";
+        }
+        else if (item.QuestionHeadingid == "15002") {
+            tabname = "Education";
+        }
 
+        var radbtn = "rad" + tabname + "ANo";
+        var mark = "lbl" + tabname + "mark";
+        var QuestionID = "lbl" + tabname + "QuestionId";
+        var ans = "lbl" + tabname + "answer";
+        var Commands = "txt" + tabname + "commentsQ";
+       
+
+        if (item.QuestionHeadingid == "15000") {
+            // for (i = 0; i < 9; i++) {
+            var Ans = document.getElementById(ans + j).innerHTML;
+            if (item.Questionid == parseInt(document.getElementById(QuestionID + j).innerHTML)) {
+                document.getElementsByName(radbtn + j)[0].disabled = true;
+                document.getElementsByName(radbtn + j)[1].disabled = true;
                 if (item.Answer == "10000") {
-                    document.getElementById("radlinkedInYesQNo"+j).checked = true; 
+                    if (Ans == "Yes") {
+                        markarr.push(document.getElementById(mark + j).innerHTML);
+                    }
+                    // document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
+                    document.getElementsByName(radbtn + j)[0].checked = true;
+                  
                 }
                 else if (item.Answer == "10001") {
-                    document.getElementById("radlinkedInNoQNo"+j).checked = true;
+                    if (Ans == "No") {
+                        markarr.push(document.getElementById(mark + j).innerHTML);
+                    }
+                    document.getElementsByName(radbtn + j)[1].checked = true;
+                    //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
                 }
+                document.getElementById(Commands + j).value = item.Comments;
 
-                $("#txtlinkedIncommentsQ"+j).val(item.Comments);
             }
-
+            j++;
+            // }
         }
-        j++;
+        var totMar = "0";
+
+        for (var p = 0; p < markarr.length; p++) {
+            totMar = parseInt(totMar) + parseInt(markarr[p]);
+        }
+        if (tabname == "linkedIn") {
+            document.getElementById("lbllinkedInovrallrating").innerHTML = totMar;
+            document.getElementById("lbllinkedInpercentage").innerHTML = (totMar / parseInt(document.getElementById("lbllinkedInoverallvalue").innerHTML)) * 100;
+        }
+
+        if (item.QuestionHeadingid == "15001") {
+            var Ans = document.getElementById(ans + k).innerHTML;
+            //for (i = 0; i < 8; i++) {
+            if (item.Questionid == parseInt(document.getElementById(QuestionID + k).innerHTML)) {
+                if (item.Answer == "10000") {
+                    if (Ans == "Yes") {
+                        markarr1.push(document.getElementById(mark + k).innerHTML);
+                    }
+                    //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
+                    document.getElementsByName(radbtn + k)[0].checked = true;
+
+                }
+                else if (item.Answer == "10001") {
+                    if (Ans == "No") {
+                        markarr1.push(document.getElementById(mark + k).innerHTML);
+                    }
+                    document.getElementsByName(radbtn + k)[1].checked = true;
+                    //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
+                }
+                document.getElementById(Commands + k).value = item.Comments;
+
+            }
+            k++;
+            //}
+        }
+        var totMar1 = "0";
+
+        for (var q = 0; q < markarr1.length; q++) {
+            totMar1 = parseInt(totMar1) + parseInt(markarr1[q]);
+        }
+        if (tabname == "visa") {
+            document.getElementById("lblvisaovrallrating").innerHTML = totMar1;
+            document.getElementById("lblvisapercentage").innerHTML = (totMar1 / parseInt(document.getElementById("lblvisaoverallvalue").innerHTML)) * 100;
+        }
+        if (item.QuestionHeadingid == "15002") {
+            var Ans = document.getElementById(ans + l).innerHTML;
+            //for (i = 0; i < 4; i++) {
+            if (item.Questionid == parseInt(document.getElementById(QuestionID + l).innerHTML)) {
+                if (item.Answer == "10000") {
+                    if (Ans == "Yes") {
+                        markarr2.push(document.getElementById(mark + l).innerHTML);
+                    }
+                    //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
+                    document.getElementsByName(radbtn + l)[0].checked = true;
+
+                }
+                else if (item.Answer == "10001") {
+                    if (Ans == "No") {
+                        markarr2.push(document.getElementById(mark + l).innerHTML);
+                    }
+                    document.getElementsByName(radbtn + l)[1].checked = true;
+                    //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
+                }
+                document.getElementById(Commands + l).value = item.Comments;
+
+            }
+            l++;
+        }
+
+        // }
+
+        //}
 
     });
+    //markarr.length = "0";
+    var totMar2 = "0";
 
+    for (var p = 0; p < markarr2.length; p++) {
+        totMar2 = parseInt(totMar2) + parseInt(markarr2[p]);
+    }
+    if (tabname == "Education") {
+        document.getElementById("lblEducationovrallrating").innerHTML = totMar2;
+        document.getElementById("lblEducationpercentage").innerHTML = (totMar2 / parseInt(document.getElementById("lblEducationoverallvalue").innerHTML)) * 100;
+    }
+
+
+
+}
+
+function disabletxtarea() {
+    $("#msgpopup1").modal('show');
+   
+}
+
+function btnhide() {
+    $("#msgpopup1").modal('hide');
+}
+
+function btnEdit() {
+    $("#msgpopup1").modal('hide');
+    document.getElementById("txtRatingcommentsQ1").disabled = false;
+    document.getElementById("editicon").style.display = "none";
 }
