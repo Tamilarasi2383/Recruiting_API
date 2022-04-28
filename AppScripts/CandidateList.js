@@ -19,6 +19,8 @@ $(document).ready(function () {
     }
     else {
         getcandidateList("All");
+        localStorage.removeItem("prevPage");
+        localStorage.setItem("prevPage", window.location.href);
     }
    
 });

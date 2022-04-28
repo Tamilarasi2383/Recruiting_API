@@ -252,6 +252,9 @@ namespace Recruiting_API.Models
         public string JobContact { get; set; }
         public string JobRate { get; set; }
         public string JobCountry { get; set; }
+        public string JobPriority { get; set; }
+        public string JobPrioritycode { get; set; }
+        public int NoofSubmission { get; set; }
         public string CreatedOn { get; set; }
         public string Assigned_To { get; set; }
 
@@ -332,6 +335,8 @@ namespace Recruiting_API.Models
         public string recruiterrating { get; set; }
         public string mode { get; set; }
         public List<candidateProof> lstCandProof { get; set; }
+
+        public string recruitergenrating { get; set; }
         public string genuinityStatus { get; set; }
     }
 

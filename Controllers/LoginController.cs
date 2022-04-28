@@ -2982,6 +2982,7 @@ public class saveGenuinityCheckController : ApiController
             genuinity.Questionid = json.GenuinityArr[i].Questionid;
             genuinity.Answer = json.GenuinityArr[i].Answer;
             genuinity.Comments = json.GenuinityArr[i].Comments;
+            genuinity.candidateid = json.GenuinityArr[i].candidateid;
             objque.genuinityChecks.Add(genuinity);
         }
                
@@ -2991,6 +2992,7 @@ public class saveGenuinityCheckController : ApiController
         genuinityCheck.Overallsystemrating = json.objRating.Overallsystemrating;
         genuinityCheck.Overallrecruiterrating = json.objRating.Overallrecruiterrating;
         genuinityCheck.Remarks = json.objRating.Remarks;
+        genuinityCheck.candidateid = json.objRating.candidateid;
 
         objque.genuinityCheckRating = genuinityCheck;
 

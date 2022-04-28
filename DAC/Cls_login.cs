@@ -2253,6 +2253,10 @@ namespace Recruiting_API.DAC
             candidatelistDetails _jc = new candidatelistDetails();
             List<candidatelist> _lstcandi = new List<candidatelist>();
 
+            query = @"update candidatedetails set type='10251' where type='NUll'";
+
+            _sql.doInsert(query);
+
             query = @"SELECT [Jobcode],[JobTitle],[Duration],[EmpTypeName],job.City,[State],job.Country,[Description]
                     ,[Assigned_To],[PriorityName],[JobstatusName],typ.[TypeName],[Rate1],cur1.[CurrencySymbol] CurrencySymbol1,
                     isnull(typ2.[TypeName],'') TypeName2,[Rate2],isnull(cur2.[CurrencySymbol],'') CurrencySymbol2,[Skill],[Jobimage],
@@ -3103,6 +3107,20 @@ namespace Recruiting_API.DAC
                 _cd.lstCandProof.Add(objProof);
             }
 
+            _read.Close();
+
+            query = @"select Overallrecruiterrating from [GenuinityCheckRating] where [candidateid]=" + Candidateid;
+            _read = _sql.doRead(query);
+
+            while (_read.Read())
+            {
+                _cd.genuinityStatus = "true";
+                _cd.recruitergenrating = _read[0].ToString();
+            }
+
+            _read.Close();
+
+
 
             jsonArray _json = new jsonArray();
             if (status == 0)
@@ -3247,12 +3265,13 @@ namespace Recruiting_API.DAC
 
             _read.Close();
 
-            query = @"select * from [GenuinityCheckRating] where [candidateid]=" + Candidateid;
+            query = @"select Overallrecruiterrating from [GenuinityCheckRating] where [candidateid]=" + Candidateid;
             _read = _sql.doRead(query);
 
             while (_read.Read())
             {
                 _cd.genuinityStatus = "true";
+                _cd.recruitergenrating = _read[0].ToString();
             }
 
             _read.Close();
@@ -5009,7 +5028,7 @@ namespace Recruiting_API.DAC
             int status = 1;
             string query = "";
             candidatelistDetailsIndia _jc = new candidatelistDetailsIndia();
-            List<candidatelistIndia> _lstcandi = new List<candidatelistIndia>();
+            List<candidatelistIndia> _lstcandi = new List<candidatelistIndia>();           
 
             query = @"SELECT [Jobcode],[JobTitle],[Duration],[EmpTypeName],job.Country,[Description]
                     ,[Assigned_To],[PriorityName],[JobstatusName],Ratetype,[Minrate],[Maxrate],Currency,
@@ -6328,7 +6347,7 @@ namespace Recruiting_API.DAC
                     " and Cand_Status in ('110', '111')" +
                     ") tb2," +
                     "(" +
-                    "select Candidate_adding from Userprofilecreation where TWE_ID='" + TWE_Id + "'" +
+                    "select Submission_Daily from usertargetmaster where TWEID='" + TWE_Id + "'" +
                     ")tb3," +
                     "(" +
                     "select count(*) candcount from candidateDetails can" +
@@ -6339,7 +6358,7 @@ namespace Recruiting_API.DAC
                     " and Cand_Status in ('101', '102', '103')" +
                     ")tb4," +
                     "(" +
-                    "select Submittion from Userprofilecreation where TWE_ID='" + TWE_Id + "'" +
+                    "select SubmissiontoTL_Daily from usertargetmaster where TWEID='" + TWE_Id + "'" +
                     ")tb5," +
                     "(" +
                     "select count(*) TLcandcount from candidateDetails can" +
@@ -6399,10 +6418,12 @@ namespace Recruiting_API.DAC
                 if (Convert.ToInt32(_read[2]) <= Convert.ToInt32(_read[3]))
                 {
                     objTile41.TileTitle = " more candidates were achieved";
+                    objTile41.TotalCount = (Convert.ToInt32(_read[3]) - Convert.ToInt32(_read[2])).ToString();
                 }
                 else
                 {
-                    objTile41.TileTitle = " more candidates to achieve";                    
+                    objTile41.TileTitle = " more candidates to achieve";
+                    objTile41.TotalCount = (Convert.ToInt32(_read[2]) - Convert.ToInt32(_read[3])).ToString();
                 }
                 objCand._lstTile.Add(objTile41);
             }
@@ -6711,7 +6732,7 @@ namespace Recruiting_API.DAC
                         join CandidateJob canjob on can.candidateid=canjob.CandidateId
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         left join Type_Master typ on typ.TypeID=can.type 
-                        left join Job_Master_USA job on job.Jobcode=canjob.Jobcode";
+                        left join Job_Master_USA job on job.Jobcode=canjob.Jobcode order by CreatedOn desc";
                     //"and can.Created_On between '" + fromdate + "' and '" + todate + "' ";
                 }
                 else
@@ -6728,7 +6749,7 @@ namespace Recruiting_API.DAC
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         left join Type_Master typ on typ.TypeID=can.type 
                         left join Job_Master_USA job on job.Jobcode=canjob.Jobcode
-                        where can.Created_By like '%" + TWE_Id + "%'";
+                        where can.Created_By like '%" + TWE_Id + "%' order by CreatedOn desc";
                     //"and can.Created_On between '" + fromdate + "' and '" + todate + "' ";
                 }
             }
@@ -6749,7 +6770,7 @@ namespace Recruiting_API.DAC
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         join Job_Master_USA job on job.Jobcode=canjob.jobcode
                         join Type_Master typ on typ.TypeID=can.type 
-                        where Cand_Status in ('103','105','107','110','111')";
+                        where Cand_Status in ('103','105','107','110','111') order by CreatedOn desc";
                 }
                 else
                 {
@@ -6767,7 +6788,7 @@ namespace Recruiting_API.DAC
                         join Type_Master typ on typ.TypeID=can.type 
                         where can.Created_By like '%" + TWE_Id + "%' " +
                         //"and can.Created_On between '" + fromdate + "' and '" + todate + "' " +
-                        "and Cand_Status in ('103','105','107','110','111')";
+                        "and Cand_Status in ('103','105','107','110','111') order by CreatedOn desc";
                 }
             }
 
@@ -6787,7 +6808,7 @@ namespace Recruiting_API.DAC
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         join Type_Master typ on typ.TypeID=can.type
                         left join Job_Master_USA job on job.Jobcode=canjob.Jobcode
-                        where Cand_Status in ('101')";
+                        where Cand_Status in ('101') order by CreatedOn desc";
                 }
                 else
                 {
@@ -6804,7 +6825,7 @@ namespace Recruiting_API.DAC
                         join Type_Master typ on typ.TypeID=can.type 
                         left join Job_Master_USA job on job.Jobcode=canjob.Jobcode
                         where can.Created_By like '%" + TWE_Id + "%' " +
-                        "and Cand_Status in ('101')";
+                        "and Cand_Status in ('101') order by CreatedOn desc";
                 }
             }
 
@@ -6824,7 +6845,7 @@ namespace Recruiting_API.DAC
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         join Type_Master typ on typ.TypeID=can.type 
                         join Job_Master_USA job on job.Jobcode=canjob.Jobcode" +
-                        " and Cand_Status in ('103')";
+                        " and Cand_Status in ('103') order by CreatedOn desc";
                 }
                 else
                 {
@@ -6842,7 +6863,7 @@ namespace Recruiting_API.DAC
                         join Job_Master_USA job on job.Jobcode=canjob.Jobcode
                         where can.Created_By like '%" + TWE_Id + "%' " +
                         //"and can.Created_On between '" + fromdate + "' and '" + todate + "' " +
-                        "and Cand_Status in ('103')";
+                        "and Cand_Status in ('103') order by CreatedOn desc";
                 }
             }
 
@@ -6862,7 +6883,7 @@ namespace Recruiting_API.DAC
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         join Type_Master typ on typ.TypeID=can.type 
                         join Job_Master_USA job on job.Jobcode=canjob.Jobcode" +
-                        " and Cand_Status in ('105')";
+                        " and Cand_Status in ('105') order by CreatedOn desc";
                 }
                 else
                 {
@@ -6880,7 +6901,7 @@ namespace Recruiting_API.DAC
                         join Job_Master_USA job on job.Jobcode=canjob.Jobcode
                         where can.Created_By like '%" + TWE_Id + "%' " +
                         //"and can.Created_On between '" + fromdate + "' and '" + todate + "' " +
-                        "and Cand_Status in ('105')";
+                        "and Cand_Status in ('105') order by CreatedOn desc";
                 }
             }
 
@@ -6900,7 +6921,7 @@ namespace Recruiting_API.DAC
                         join CandidateStatus_Master sta on sta.CandidateStatusID=canjob.Cand_Status
                         join Type_Master typ on typ.TypeID=can.type 
                         join Job_Master_USA job on job.Jobcode=canjob.Jobcode " +
-                        "and Cand_Status in ('107')";
+                        "and Cand_Status in ('107') order by CreatedOn desc";
                 }
                 else
                 {
@@ -6918,7 +6939,7 @@ namespace Recruiting_API.DAC
                         join Job_Master_USA job on job.Jobcode=canjob.Jobcode
                         where can.Created_By like '%" + TWE_Id + "%' " +
                         //"and can.Created_On between '" + fromdate + "' and '" + todate + "' " +
-                        "and Cand_Status in ('107')";
+                        "and Cand_Status in ('107') order by CreatedOn desc";
                 }
             }
 
@@ -7121,8 +7142,8 @@ namespace Recruiting_API.DAC
                     join EmploymentType_Master empl on empl.EmpTypeID=job.EmplType                    
 					join CandidateJob canjob on canjob.Jobcode=job.Jobcode
 					join CandidateDetails can on can.candidateid=canjob.CandidateId
-                    join Type_Master typ on typ.TypeID=can.type          
-                    where job.Assigned_To like '%" + TWE_Id + "%' and job.Jobcode in" +
+                    join Type_Master typ on typ.TypeID=can.type and can.candidateid='"+ Candidateid +           
+                    " ' where job.Assigned_To like '%" + TWE_Id + "%' and job.Jobcode in" +
                     "(select jobcode from CandidateJob where candidateid='" + Candidateid + "')";
 
 
@@ -7173,7 +7194,7 @@ namespace Recruiting_API.DAC
                             query = @"select distinct job.Jobcode,Jobimage,JobTitle,Duration,
                                 EmpTypeName,City,State from Job_Master_USA job
                                 join EmploymentType_Master empl on empl.EmpTypeID=job.EmplType
-                                where Skill like '%" + totSkill[j] + "%' and Jobcode!='" + _cd.candDetail.jobcode + "'";
+                                where Skill like '%" + totSkill[j] + "%' and Jobcode!='" + _cd.candDetail.jobcode + "' and Jobstatus=10200";
 
                             _read = _sql.doRead(query);
                             while (_read.Read())
@@ -7245,6 +7266,18 @@ namespace Recruiting_API.DAC
             }
 
             _read.Close();
+
+            query = @"select Overallrecruiterrating from [GenuinityCheckRating] where [candidateid]=" + Candidateid;
+            _read = _sql.doRead(query);
+
+            while (_read.Read())
+            {
+                _cd.candDetail.genuinityStatus = "true";
+                _cd.candDetail.recruitergenrating = _read[0].ToString();
+            }
+
+            _read.Close();
+
 
             jsonArray _json = new jsonArray();
             if (status == 0)
@@ -12744,25 +12777,27 @@ namespace Recruiting_API.DAC
                 {
                     strquery = @"select Jobcode,JobTitle,Duration,empl.EmpTypeName,loc.LocationName,
                                 stat.JobstatusName,cli.ClientCompanyName,con.ContactPerson,
-                                convert(varchar,job.Created_On,106) Created_On,Jobimage,job.Created_By from Job_Master_USA job
+                                convert(varchar,job.Created_On,106) Created_On,Jobimage,job.Created_By,pri.PriorityName,Prioritylevel from Job_Master_USA job
                                 join Location_Master loc on job.Location=loc.LocationID
                                 join EmploymentType_Master empl on empl.EmpTypeID=job.EmplType
                                 join Jobstatus_Master stat on stat.JobstatusID=job.Jobstatus
                                 join ClientMaster cli on cli.ClientID=job.Clientname
                                 join Client_Contact_Person con on con.ClientContactID=job.Contactname
-                                where Jobstatus='10200' order by job.Created_On desc";
+                                join Priority_Master pri on pri.PriorityID=job.Prioritylevel
+                                where Jobstatus='10200' order by Prioritylevel,job.Created_On desc";
                 }
                 else
                 {
                     strquery = @"select Jobcode,JobTitle,Duration,empl.EmpTypeName,loc.LocationName,
                                 stat.JobstatusName,cli.ClientCompanyName,con.ContactPerson,
-                                convert(varchar,job.Created_On,106) Created_On,Jobimage,job.Created_By from Job_Master_USA job
+                                convert(varchar,job.Created_On,106) Created_On,Jobimage,job.Created_By,pri.PriorityName,Prioritylevel from Job_Master_USA job
                                 join Location_Master loc on job.Location=loc.LocationID
                                 join EmploymentType_Master empl on empl.EmpTypeID=job.EmplType
                                 join Jobstatus_Master stat on stat.JobstatusID=job.Jobstatus
                                 join ClientMaster cli on cli.ClientID=job.Clientname
                                 join Client_Contact_Person con on con.ClientContactID=job.Contactname
-                                where job.Created_By like '%" + TWE_Id + "%'" + " and Jobstatus='10200' order by job.Created_On desc";
+                                join Priority_Master pri on pri.PriorityID=job.Prioritylevel
+                                where job.Created_By like '%" + TWE_Id + "%'" + " and Jobstatus='10200' order by Prioritylevel,job.Created_On desc";
                 }
 
             }
@@ -13010,26 +13045,116 @@ namespace Recruiting_API.DAC
 
             _read = _sql.doRead(strquery);
 
-            while (_read.Read())
+            if (tiletype == "Open")
             {
-                JobcodeList objJob = new JobcodeList();
+                while (_read.Read())
+                {
+                    JobcodeList objJob = new JobcodeList();
 
-                objJob.Jobcode = _read[0].ToString();
-                objJob.JobTitle = _read[1].ToString();
-                objJob.JobDuration = _read[2].ToString();
-                objJob.JobType = _read[3].ToString();
-                objJob.JobState = _read[4].ToString();
-                objJob.JobStatus = _read[5].ToString();
-                objJob.JobClient = _read[6].ToString();
-                objJob.JobContact = _read[7].ToString();
-                objJob.CreatedOn = _read[8].ToString();
-                objJob.JobMediaPath = _read[9].ToString();
-                objJob.Assigned_To = _read[10].ToString();
-                _db.lstJob.Add(objJob);
+                    objJob.Jobcode = _read[0].ToString();
+                    objJob.JobTitle = _read[1].ToString();
+                    objJob.JobDuration = _read[2].ToString();
+                    objJob.JobType = _read[3].ToString();
+                    objJob.JobState = _read[4].ToString();
+                    objJob.JobStatus = _read[5].ToString();
+                    objJob.JobClient = _read[6].ToString();
+                    objJob.JobContact = _read[7].ToString();
+                    objJob.CreatedOn = _read[8].ToString();
+                    objJob.JobMediaPath = _read[9].ToString();
+                    objJob.Assigned_To = _read[10].ToString();
+                    objJob.JobPriority = _read[11].ToString();
+                    objJob.JobPrioritycode = _read[12].ToString();
+                    _db.lstJob.Add(objJob);
+                }
+                _read.Close();
+            }
+            else
+            {
+
+                while (_read.Read())
+                {
+                    JobcodeList objJob = new JobcodeList();
+
+                    objJob.Jobcode = _read[0].ToString();
+                    objJob.JobTitle = _read[1].ToString();
+                    objJob.JobDuration = _read[2].ToString();
+                    objJob.JobType = _read[3].ToString();
+                    objJob.JobState = _read[4].ToString();
+                    objJob.JobStatus = _read[5].ToString();
+                    objJob.JobClient = _read[6].ToString();
+                    objJob.JobContact = _read[7].ToString();
+                    objJob.CreatedOn = _read[8].ToString();
+                    objJob.JobMediaPath = _read[9].ToString();
+                    objJob.Assigned_To = _read[10].ToString();
+                    _db.lstJob.Add(objJob);
+                }
+                _read.Close();
             }
 
-            _read.Close();
+           
 
+            if (tiletype == "Open")
+            {
+                if (jobEdit == "2" || jobView == "2" || jobFeedback == "2")
+                {
+                    strquery = @"select count(can.candidateid) Submission_count,job.Jobcode from CandidateDetails can
+                    join CandidateJob canjob on can.candidateid=canjob.CandidateId
+                    join Job_Master_USA job on job.Jobcode=canjob.Jobcode
+                    where Jobstatus='10200' and cand_status>=103" +
+                    "group by job.Jobcode";
+
+                }
+
+                else
+                {
+                    strquery = @"select count(can.candidateid) Submission_count,job.Jobcode from CandidateDetails can
+                    join CandidateJob canjob on can.candidateid=canjob.CandidateId
+                    join Job_Master_USA job on job.Jobcode=canjob.Jobcode
+                    where job.Created_By like '%" + TWE_Id + "%'" + " and Jobstatus='10200' and cand_status>=103" +
+                    "group by job.Jobcode";
+
+                }
+
+                _read = _sql.doRead(strquery);
+
+                List<JobcodeList> lstSubmissionlist = new List<JobcodeList>();
+
+                while (_read.Read())
+                {
+                    JobcodeList jobcode = new JobcodeList();
+                    jobcode.NoofSubmission = Convert.ToInt32(_read[0]);
+                    jobcode.Jobcode = _read[1].ToString();
+                    lstSubmissionlist.Add(jobcode);
+                }
+
+                _read.Close();
+
+                for (int i = 0; i < _db.lstJob.Count; i++)
+                {
+                    for (int j = 0; j < lstSubmissionlist.Count; j++)
+                    {
+                        if (lstSubmissionlist[j].Jobcode == _db.lstJob[i].Jobcode)
+                        {
+                            _db.lstJob[i].NoofSubmission = lstSubmissionlist[j].NoofSubmission;
+                        }
+                    }
+                }
+
+                for (int k = 0; k < _db.lstJob.Count; k++)
+                {
+                    if (_db.lstJob[k].NoofSubmission==null)
+                    {
+                        _db.lstJob[k].NoofSubmission = 0;
+                    }
+                }
+
+                List<JobcodeList> sortLst = _db.lstJob.OrderBy(o => o.JobPrioritycode).ThenBy(p => p.NoofSubmission).ThenBy(p => p.CreatedOn).ToList<JobcodeList>();
+                _db.lstJob = sortLst;
+
+
+            }
+
+            
 
             jsonArray _json = new jsonArray();
             if (status == 0)
@@ -13044,6 +13169,7 @@ namespace Recruiting_API.DAC
                 _json.status = "1";
                 _json.message = "SQL QUERY EXECUTED";
                 _json.data = _db;
+               
             }
 
             return _json;
@@ -19999,11 +20125,10 @@ namespace Recruiting_API.DAC
                 else if (que.mode == "U")
                 {
                     query = @"UPDATE [GenuinityCheck]
-                        SET [QuestionHeadingid] = '" + que.genuinityChecks[i].QuestionHeadingid +
-                            "',[Questionid] = '" + que.genuinityChecks[i].Questionid +
-                            "',[Answer] = '" + que.genuinityChecks[i].Answer +
+                        SET [Answer] = '" + que.genuinityChecks[i].Answer +
                             "',[Comments] = '" + que.genuinityChecks[i].Comments +
-                            "' WHERE candidateid='" + que.genuinityChecks[i].candidateid + "'";
+                            "' WHERE candidateid='" + que.genuinityChecks[i].candidateid + "'" +
+                            " and Questionid="+que.genuinityChecks[i].Questionid + "and QuestionHeadingid="+ que.genuinityChecks[i].QuestionHeadingid;
 
                 }
                 _sql.doInsert(query);
@@ -20029,7 +20154,7 @@ namespace Recruiting_API.DAC
                         "',[Overallsystemrating] = '" + que.genuinityCheckRating.Overallsystemrating +
                         "',[Overallrecruiterrating] = '" + que.genuinityCheckRating.Overallrecruiterrating +
                         "',[Remarks] = '" + que.genuinityCheckRating.Remarks +
-                        "' WHERE GenuinityCheckID='" + que.genuinityCheckRating.GenuinityCheckRatingID + "'";
+                        "' WHERE candidateid='" + que.genuinityCheckRating.candidateid + "'";
 
             }
             _sql.doInsert(query);           
@@ -20047,7 +20172,7 @@ namespace Recruiting_API.DAC
                 _json = new jsonArray();
                 _json.status = "1";
                 _json.message = "SQL QUERY EXECUTED";
-                _json.data = "";
+                _json.data = candidateid;
             }
 
             return _json;
@@ -20066,9 +20191,9 @@ namespace Recruiting_API.DAC
 
             strquery = @"SELECT [GenuinityCheckID],gen.QuestionHeadingid,gen.Questionid,gen.Answer,[Comments],Question
                          FROM [GenuinityCheck] gen join Question_Master que on gen.Questionid=que.Questionid 
-                         and gen.QuestionHeadingid=que.QuestionHeadingid where [candidateid]=" + candidateid;
+                         and gen.QuestionHeadingid=que.QuestionHeadingid where [candidateid]=" + candidateid+ " order by gen.QuestionHeadingid,gen.Questionid";
 
-            SqlDataReader _read = _sql.doRead(strquery);
+             SqlDataReader _read = _sql.doRead(strquery);
 
             while (_read.Read())
             {

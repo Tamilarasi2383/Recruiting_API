@@ -1,18 +1,32 @@
-﻿$(document).ready(function () {
+﻿var candidateid;
+var jobid;
+
+$(document).ready(function () {
     $('#lblPagetitle').text("Candidate");
 
     $('#dropdownMenuButton').css('display', 'none');
     $('#lblDurationview').css('display', 'none');
-
+    
     $('#lblCandidatename').text(getSession("CName"));
     $('#lblCandidatemail').text(getSession("CMail"));
     $('#lblCandidatephone').text(getSession("CPhone"));
 
-    $('#lblJobtitle').text(getSession("CJobName"));
-    $('#lblDuration').text(getSession("CJobDuration"));
-    $('#lblType').text(getSession("CJobType"));
-    $('#lblWorkingtype').text(getSession("CJobWorkType"));
-    //$("#imgJob").attr("src", getSession('CJobImg'));
+    if (getSession("CJobName") != "") {
+        $('#lblJobtitle').text(getSession("CJobName"));
+        $('#lblDuration').text(getSession("CJobDuration"));
+        $('#lblType').text(getSession("CJobType"));
+        $('#lblWorkingtype').text(getSession("CJobWorkType"));
+        $("#imgJob").attr("src", getSession('CJobImg'));
+        $('#div_job1').css('display', 'block');
+    }
+    else {
+        $('#div_job1').css('display', 'none');
+        $('#lblJobtitle').text("");
+        $('#lblDuration').text("");
+        $('#lblType').text("");
+        $('#lblWorkingtype').text("");
+        $("#imgJob").attr("src", '');
+    }
 
     getQuestionlist(getSession("RegionValue"));
 
@@ -24,8 +38,8 @@
         if (hash.length == 1) {
 
             var params1 = hash[0].split("=");
-
             getCandidateQuestionlist(params1[1]);
+
         }
 
     }
@@ -153,6 +167,14 @@ function Validationtxtarea(tabname, tablecount) {
         document.getElementById("linkedIn").style.display = "none";
         document.getElementById("visa").style.display = "none";
         document.getElementById("value").innerHTML = Math.round((parseInt(document.getElementById("lbllinkedInpercentage").innerHTML) + parseInt(document.getElementById("lblvisapercentage").innerHTML) + parseInt(document.getElementById("lblEducationpercentage").innerHTML)) / 3) + " %";
+        var url = window.location.href;
+        hashes = url.split("?")[1];
+        if (hashes == null) {
+            document.getElementById('slider-format').noUiSlider.set(Math.round((parseInt(document.getElementById("lbllinkedInpercentage").innerHTML) + parseInt(document.getElementById("lblvisapercentage").innerHTML) + parseInt(document.getElementById("lblEducationpercentage").innerHTML)) / 3));
+        }
+       
+       
+     
         tablist("Rating");
         return true;
 
@@ -287,15 +309,15 @@ function CalculateOvrallRatinglinkedIn(tabname, tablecount) {
     }
     if (overalllinkedIn == "lbllinkedInovrallrating") {
         document.getElementById("lbllinkedInovrallrating").innerHTML = totMar;
-        document.getElementById("lbllinkedInpercentage").innerHTML = (totMar / parseInt(document.getElementById("lbllinkedInoverallvalue").innerHTML)) * 100;
+        document.getElementById("lbllinkedInpercentage").innerHTML = Math.round((totMar / parseInt(document.getElementById("lbllinkedInoverallvalue").innerHTML)) * 100);
     }
     else if (overallvisa == "lblvisaovrallrating") {
         document.getElementById("lblvisaovrallrating").innerHTML = totMar;
-        document.getElementById("lblvisapercentage").innerHTML = (totMar / parseInt(document.getElementById("lblvisaoverallvalue").innerHTML)) * 100;
+        document.getElementById("lblvisapercentage").innerHTML = Math.round((totMar / parseInt(document.getElementById("lblvisaoverallvalue").innerHTML)) * 100);
     }
     else if (overallEducation == "lblEducationovrallrating") {
         document.getElementById("lblEducationovrallrating").innerHTML = totMar;
-        document.getElementById("lblEducationpercentage").innerHTML = (totMar / parseInt(document.getElementById("lblEducationoverallvalue").innerHTML)) * 100;
+        document.getElementById("lblEducationpercentage").innerHTML = Math.round((totMar / parseInt(document.getElementById("lblEducationoverallvalue").innerHTML)) * 100);
     }
 
 
@@ -315,7 +337,15 @@ function createlinkedInDiv(data) {
 
             str += "<div class='col-12'>" +
                 "<div class='row'>" +
-                "<div class='col-7'>" +
+                "<div class='col-12' style= 'padding: 3px 17px;display:none;' id='iconLinkedin"+j+"' >" +
+                "<div class='form- col-md-12 text-right' >" +
+                "<i class='fa fa-pen top-0' style='margin: 10px;' onclick=iconLinkedin('linkedIn','" + j + "')>" + "</i > " +
+                "</div>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<div class='col-8'>" +
                 //"<label>" + j + ".</label>" +
                 "<label class='form-label' id='lbllinkedInquestion" + j + "'>" + j + "." + " " +
                 item.Question +
@@ -329,26 +359,20 @@ function createlinkedInDiv(data) {
                 item.Mark +
                 "</label>" +
                 "</div>" +
-                "<div class='col-5'>" +
-                "<div class='row' style='border-radius: 10px;margin: 0px 40px 7px 0px;' id='div_errorlinkedInQNo" + j + "'>" +
                 "<div class='col-4'>" +
+                "<div class='row' style='border-radius: 10px;margin: 0px 40px 7px 0px;' id='div_errorlinkedInQNo" + j + "'>" +
+                "<div class='col-6'>" +
                 "<div class='form-check mb-0 mt-1'>" +
                 "<input class='form-check-input' type='radio' value='10000' name='radlinkedInANo" + j + "' id='radlinkedInYesQNo" + j + "' onclick=validateQNo('linkedIn','" + j + "','" + data.length + "')>" +
                 "<label class='custom-control-label' for='customRadio1'>Yes</label>" +
                 "</div>" +
                 "</div>" +
-                "<div class='col-4'>" +
+                "<div class='col-6'>" +
                 "<div class='form-check mb-0 mt-1'>" +
                 "<input class='form-check-input' type='radio' value='10001' name='radlinkedInANo" + j + "' id='radlinkedInNoQNo" + j + "' onclick=validateQNo('linkedIn','" + j + "','" + data.length + "')>" +
                 "<label class='custom-control-label' for='customRadio1'>No</label>" +
                 "</div>" +
                 "</div>" +
-                "<div class='col-4'>" +
-                "<div class='form-control col-md-12 text-right' style='background-color:#e9ecef;padding: 0px;'>" +
-                "<i class='fa fa-pen top-0'>"+"</i > "+
-                "</div>" +
-                "</div>" +
-                
                 "</div>" +
                 "</div>" +
                 "</div>" +
@@ -376,6 +400,13 @@ function createlinkedInDiv(data) {
         if (item.QuestionHeadingid == "15001") {
 
             str1 += "<div class='col-12'>" +
+                "<div class='row'>" +
+                "<div class='col-12' style= 'padding: 3px 17px;display:none;' id='iconvisa" + k +"'>" +
+                "<div class='form- col-md-12 text-right' >" +
+                "<i class='fa fa-pen top-0' style='margin: 10px;' onclick=iconLinkedin('visa','" + k + "')>" + "</i > " +
+                "</div>" +
+                "</div>" +
+                "</div>" +
                 "<div class='row'>" +
                 "<div class='col-8'>" +
                 //"<label>" + k + ".</label>" +
@@ -432,6 +463,13 @@ function createlinkedInDiv(data) {
         if (item.QuestionHeadingid == "15002") {
 
             str2 += "<div class='col-12'>" +
+                "<div class='row'>" +
+                "<div class='col-12' style= 'padding: 3px 17px;display:none;' id='iconEducation" + l +"'>" +
+                "<div class='form- col-md-12 text-right' >" +
+                "<i class='fa fa-pen top-0' style='margin: 10px;' onclick=iconLinkedin('Education','" + l + "')>" + "</i > " +
+                "</div>" +
+                "</div>" +
+                "</div>" +
                 "<div class='row'>" +
                 "<div class='col-8'>" +
                 //"<label>" + l + ".</label>" +
@@ -521,10 +559,22 @@ function successCallBack(key, value) {
         $("#lblEducationoverallvalue").text(resData.questionheadings[2].OutofMark);
 
         createlinkedInDiv(resData.question);
+        stopLoader();
     }
 
     else if (key == "SaveGenuinity") {
+        
+        candidateid = resData;
+        jobid = getSession('CJobid');
         $("#msgpopup").modal('show');
+        $("#div-message1").text("Genuinity Saved successfully");
+        $("#div_Success").css('display', 'block');
+        $("#div_Confirm").css('display', 'none');
+        $("#txtRatingcommentsQ1").removeClass("is-invalid");
+        document.getElementById("txtRatingcommentsQ1").disabled = true;
+        stopLoader();
+
+
     }
 
     else if (key == "QUESTIONCANDLIST") {
@@ -532,6 +582,14 @@ function successCallBack(key, value) {
         document.getElementById("value1").innerHTML = resData.genuinityCheckRating.Overallrecruiterrating;
         document.getElementById("txtRatingcommentsQ1").value = resData.genuinityCheckRating.Remarks;
 
+        var sliderFormat = document.getElementById('slider-format');
+        
+
+        var inputFormat = document.getElementById('value1');
+
+        sliderFormat.noUiSlider.set(inputFormat.innerHTML);
+        sliderFormat.setAttribute('disabled', true);
+        stopLoader();
     }
 
 }
@@ -580,12 +638,45 @@ function tablist(filterVal) {
 //}
 function closepopup() {
     $("#msgpopup").modal('hide');
+    var url = getSession('CURL');
+    hashes = url.split("?")[1];
+    if (hashes == null) {
+
+        if (jobid!="") {
+            window.location.href = "Candidate.aspx?jobid=" + jobid + "&id=" + candidateid;
+        }
+        else {
+            window.location.href = "Candidate.aspx?id=" + candidateid;
+        }
+    }
+    else {
+        var hash = hashes.split('&');
+        if (hash.length == 1) {
+            var params1 = hash[0].split("=");
+
+            if (params1[1] == "NoJob") {
+                window.location.href = "Candidate.aspx?id=" + candidateid;
+            }
+
+            else {
+                window.location.href = getSession('CURL');
+            }
+           
+        }
+        else {
+
+            window.location.href = getSession('CURL');
+        }
+       
+    }
 }
 
 
 function saveGenuinity(tabname1, tabname2, tabname3) {
 
-    if ($('#txtRatingcommentsQ1').val() == "") {
+
+    if ($('#txtRatingcommentsQ1').val() == "")
+    {
         $("#txtRatingcommentsQ1").addClass("is-invalid");
     }
 
@@ -593,14 +684,15 @@ function saveGenuinity(tabname1, tabname2, tabname3) {
         var mode;
         var url = window.location.href;
         hashes = url.split("?")[1];
-        if (hashes != null) {
-
+        if (hashes != null)
+        {
             var hash = hashes.split('&');
             var params1 = hash[0].split("=");
             mode = "U";
-
+            $('#hdncandidateid').val(params1[1]);
         }
-        else {
+        else
+        {
             mode = "I";
         }
         var mailid = $("#lblCandidatemail").text();
@@ -632,8 +724,8 @@ function saveGenuinity(tabname1, tabname2, tabname3) {
                     var obj = {};
                     obj.QuestionHeadingId = document.getElementById("hdntableheadingid1").value;
                     obj.Questionid = document.getElementById("lbllinkedInQuestionId" + j).innerHTML;
-                    obj.Comments = document.getElementById(txtname + j).value;
-
+                    obj.Comments = replaceAll(document.getElementById(txtname + j).value, "'", "''");
+                    obj.candidateid = $('#hdncandidateid').val();
                     if (document.getElementsByName(radbtnYes + j)[0].checked) {
                         obj.Answer = document.getElementsByName(radbtnYes + j)[0].value;
 
@@ -653,7 +745,8 @@ function saveGenuinity(tabname1, tabname2, tabname3) {
                     var obj = {};
                     obj.QuestionHeadingId = document.getElementById("hdntableheadingid2").value;
                     obj.Questionid = document.getElementById("lblvisaQuestionId" + k).innerHTML;
-                    obj.Comments = document.getElementById(txtname + k).value;
+                    obj.Comments = replaceAll(document.getElementById(txtname + k).value, "'", "''");
+                    obj.candidateid = $('#hdncandidateid').val();
 
                     if (document.getElementsByName(radbtnYes + k)[0].checked) {
                         obj.Answer = document.getElementsByName(radbtnYes + k)[0].value;
@@ -675,7 +768,8 @@ function saveGenuinity(tabname1, tabname2, tabname3) {
                     var obj = {};
                     obj.QuestionHeadingId = document.getElementById("hdntableheadingid3").value;
                     obj.Questionid = document.getElementById("lblEducationQuestionId" + l).innerHTML;
-                    obj.Comments = document.getElementById(txtname + l).value;
+                    obj.Comments = replaceAll(document.getElementById(txtname + l).value, "'", "''");
+                    obj.candidateid = $('#hdncandidateid').val();
 
                     if (document.getElementsByName(radbtnYes + l)[0].checked) {
                         obj.Answer = document.getElementsByName(radbtnYes + l)[0].value;
@@ -700,8 +794,8 @@ function saveGenuinity(tabname1, tabname2, tabname3) {
         objRating.Educationrating = $("#lblEducationpercentage").text();
         objRating.Overallsystemrating = $("#value").text();
         objRating.Overallrecruiterrating = $("#value1").text();
-        objRating.Remarks = $("#txtRatingcommentsQ1").val();
-
+        objRating.Remarks = replaceAll(document.getElementById("txtRatingcommentsQ1").value, "'", "''");
+        objRating.candidateid = $('#hdncandidateid').val();
         var strdata = { "GenuinityArr": GenuinityArr, "objRating": objRating, "mode": mode, "mailid": mailid };
 
         common_api_ajax_request("api/saveGenuinityCheck", "SaveGenuinity", strdata);
@@ -798,21 +892,21 @@ function setCandidateQuestion(data) {
         var QuestionID = "lbl" + tabname + "QuestionId";
         var ans = "lbl" + tabname + "answer";
         var Commands = "txt" + tabname + "commentsQ";
+        var overalllinkedIn = "lbl" + tabname + "overallrating";
        
-
         if (item.QuestionHeadingid == "15000") {
             // for (i = 0; i < 9; i++) {
+            document.getElementsByName(radbtn + j)[0].disabled = true;
+            document.getElementsByName(radbtn + j)[1].disabled = true;
             var Ans = document.getElementById(ans + j).innerHTML;
             if (item.Questionid == parseInt(document.getElementById(QuestionID + j).innerHTML)) {
-                document.getElementsByName(radbtn + j)[0].disabled = true;
-                document.getElementsByName(radbtn + j)[1].disabled = true;
                 if (item.Answer == "10000") {
                     if (Ans == "Yes") {
                         markarr.push(document.getElementById(mark + j).innerHTML);
                     }
                     // document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
                     document.getElementsByName(radbtn + j)[0].checked = true;
-                  
+
                 }
                 else if (item.Answer == "10001") {
                     if (Ans == "No") {
@@ -822,7 +916,7 @@ function setCandidateQuestion(data) {
                     //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
                 }
                 document.getElementById(Commands + j).value = item.Comments;
-
+                document.getElementById("iconLinkedin"+j).style.display = "block";
             }
             j++;
             // }
@@ -840,6 +934,8 @@ function setCandidateQuestion(data) {
         if (item.QuestionHeadingid == "15001") {
             var Ans = document.getElementById(ans + k).innerHTML;
             //for (i = 0; i < 8; i++) {
+            document.getElementsByName(radbtn + k)[0].disabled = true;
+            document.getElementsByName(radbtn + k)[1].disabled = true;
             if (item.Questionid == parseInt(document.getElementById(QuestionID + k).innerHTML)) {
                 if (item.Answer == "10000") {
                     if (Ans == "Yes") {
@@ -857,7 +953,7 @@ function setCandidateQuestion(data) {
                     //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
                 }
                 document.getElementById(Commands + k).value = item.Comments;
-
+                document.getElementById("iconvisa" + k).style.display = "block";
             }
             k++;
             //}
@@ -873,6 +969,8 @@ function setCandidateQuestion(data) {
         }
         if (item.QuestionHeadingid == "15002") {
             var Ans = document.getElementById(ans + l).innerHTML;
+            document.getElementsByName(radbtn + l)[0].disabled = true;
+            document.getElementsByName(radbtn + l)[1].disabled = true;
             //for (i = 0; i < 4; i++) {
             if (item.Questionid == parseInt(document.getElementById(QuestionID + l).innerHTML)) {
                 if (item.Answer == "10000") {
@@ -891,7 +989,8 @@ function setCandidateQuestion(data) {
                     //document.getElementById("lbllinkedInovrallrating").innerHTML = parseInt(document.getElementById(mark + j).innerHTML);
                 }
                 document.getElementById(Commands + l).value = item.Comments;
-
+                document.getElementById("iconEducation" + l).style.display = "block";
+                document.getElementById("editicon").style.display = "block";
             }
             l++;
         }
@@ -917,16 +1016,81 @@ function setCandidateQuestion(data) {
 }
 
 function disabletxtarea() {
-    $("#msgpopup1").modal('show');
-   
+    var url = window.location.href;
+    hashes = url.split("?")[1];
+    if (hashes != null) {
+        btnEdit();
+    }
+    else {
+        var str = (document.getElementById("value").innerHTML).split('%');
+        var str1 = (document.getElementById("value1").innerHTML).split('%');
+        document.getElementById("txtRatingcommentsQ1").disabled = true;
+
+        if (str1[0].trim() > str[0].trim()) {
+
+            $("#msgpopup").modal('show');
+            $("#div-message1").text("Do you wish to overwrite system rating?");
+            $("#div_Success").css('display', 'none');
+            $("#div_Confirm").css('display', 'block');
+
+        }
+    }
 }
 
 function btnhide() {
-    $("#msgpopup1").modal('hide');
+    $("#msgpopup").modal('hide');
+    document.getElementById("txtRatingcommentsQ1").disabled = true;
+    document.getElementById("txtRatingcommentsQ1").value = "I Agree with the System Rating";
+   
+    var str = (document.getElementById("value").innerHTML).split('%');
+    document.getElementById('slider-format').noUiSlider.set(str[0].trim());
 }
 
 function btnEdit() {
-    $("#msgpopup1").modal('hide');
-    document.getElementById("txtRatingcommentsQ1").disabled = false;
-    document.getElementById("editicon").style.display = "none";
+
+    var url = window.location.href;
+    hashes = url.split("?")[1];
+    if (hashes != null) {
+
+        $("#msgpopup").modal('hide');
+        document.getElementById("txtRatingcommentsQ1").disabled = false;
+        //document.getElementById("txtRatingcommentsQ1").value = "";
+        document.getElementById("editicon").style.display = "none";
+        document.getElementById('slider-format').removeAttribute('disabled');
+    }
+
+    else {
+
+        $("#msgpopup").modal('hide');
+        document.getElementById("txtRatingcommentsQ1").disabled = false;
+        document.getElementById("txtRatingcommentsQ1").value = "";
+        document.getElementById("editicon").style.display = "none";
+        document.getElementById('slider-format').removeAttribute('disabled');
+    }
+
+}
+
+function iconLinkedin(tabname, j) {
+
+    var radbtn = "rad" + tabname + "ANo";
+    var txtvalue = "txt" + tabname + "commentsQ";
+    var counter = 0;
+    if (tabname == "linkedIn") {
+        counter = 10;
+    }
+    else if (tabname == "visa") {
+        counter = 9;
+    }
+    else if (tabname == "Education") {
+        counter = 5;
+    }
+    for (i = 1; i < counter; i++) {
+        document.getElementById(txtvalue + i).disabled = true;
+        document.getElementsByName(radbtn + i)[0].disabled = true;
+        document.getElementsByName(radbtn + i)[1].disabled = true;
+    }
+    document.getElementById(txtvalue + j).disabled = false;
+    document.getElementsByName(radbtn + j)[0].disabled = false;
+    document.getElementsByName(radbtn + j)[1].disabled = false;
+
 }

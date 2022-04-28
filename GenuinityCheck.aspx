@@ -35,7 +35,31 @@
         }
     </style>
 
-    <div class="container-fluid my-3 py-3">
+    <style>
+        .loader_cls {
+            z-index: 1000;
+            background: #fcfefc;
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+
+    <div class="bg-overlay loader_cls">
+        <section class="fullscreen">
+            <div class="container-fullwidth">
+                <div class="row justify-content-center p-60">
+                    <div class="col-md-12 text-center">
+                        <img class="h-100 w-100" src="Images/loader.gif" id="imgLoader" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container-fluid my-3 py-3 hidden">
 
         <div class="col-lg-9 col-12 mx-auto">
 
@@ -49,6 +73,7 @@
                                     <%--<img id="imgJob2" src="https://techwaukee.com//admin//Job-Images//SAP_job.png" class="avatar avatar-sm me-3">--%>
                                 </div>
                                 <div class="d-flex flex-column justify-content-center">
+                                    <input type="hidden" id="hdncandidateid" />
                                     <label style="margin-bottom: -7px;"><span class="mb-0 text-sm h6" id="lblCandidatename">Satish Kumbhare</span></label>
                                     <p style="cursor: point;"><span class="text-xs text-secondary mb-0" id="lblCandidatemail">satishkumbhare@hotmail.com</span> | <span class="text-xs text-secondary mb-0" id="lblCandidatephone">8484992057</span></p>
                                 </div>
@@ -62,10 +87,10 @@
                                     <div class="col-md-10">
                                         <div class="d-flex flex-column justify-content-center text-right">
                                             <label style="margin-bottom: -7px;">
-                                                <input type="hidden" id="hdnJobid" value="TWEIND0006">
-                                                <input type="hidden" id="hdnCandStatus" value="105">
-                                                <span class="mb-0 text-sm h6" id="lblJobtitle">SAP MM Consultant</span></label>
-                                            <p style="cursor: pointer;"><span class="text-xs text-secondary mb-0" id="lblDuration">3 Months</span> | <span class="text-xs text-secondary mb-0" id="lblType">Contract</span> | <span class="text-xs text-secondary mb-0" id="lblWorkingtype">Remote</span></p>
+                                                <input type="hidden" id="hdnJobid">
+                                                <input type="hidden" id="hdnCandStatus">
+                                                <span class="mb-0 text-sm h6" id="lblJobtitle"></span></label>
+                                            <p style="cursor: pointer;"><span class="text-xs text-secondary mb-0" id="lblDuration"></span> | <span class="text-xs text-secondary mb-0" id="lblType"></span> | <span class="text-xs text-secondary mb-0" id="lblWorkingtype"></span></p>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -232,7 +257,7 @@
                     </div>
                 </div>
                 <div class="container-fluid" id="rating" >
-                    <div class="" id="Rating" style="display:block;" tabindex="0">
+                    <div class="" id="Rating" style="display:none;" tabindex="0">
                          <div class="card-header pe-0 ps-0 pt-0">
                             <div class="col-12">
                                 <div class="row">
@@ -246,6 +271,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                          
                             <div class="row">
                                 <div class="col-6">
                                     <label>Overall System Rating</label>
@@ -276,21 +302,26 @@
                         </div>
                         <div class="col-md-12">
                             <label>Recruiter Comments</label>
+                            <div class='col-md-12 text-right' style="display:none" id="editicon">
+                                 <i class="fa fa-pen top-0" onclick="disabletxtarea()" ></i>
+                            </div>
                             <div class="form-group">
                                 <div class="form-control col-md-12 text-right" style="background-color:#e9ecef;padding: 0px;">
-                <i class="fa fa-pen top-0" onclick="disabletxtarea()" id="editicon"></i>
-                <textarea class="form-control" id="txtRatingcommentsQ1" rows="3"  disabled> Did he/she have an active LinkedIn account</textarea>
+                <textarea class="form-control" id="txtRatingcommentsQ1" rows="3"  disabled>I Agree with the System Rating</textarea>
+                                    <div class="col-12 text-left" id="lblcommentserr" style="display:none;">
+                                        <label style="color:orangered">Please change your comments</label>
+                                    </div>
                                  </div>       
                             </div>
                         </div>
                          <div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
-                <div class="modal fade" id="msgpopup1" tabindex="-1" aria-hidden="true" style="display:none;">
+                <div class="modal fade" id="msgpopup" tabindex="-1" aria-hidden="true" style="display:none;">
                     <div class="modal-dialog" style="max-width: 300px !important; margin-top: 15rem !important;">
                         <div class="modal-content">
 
                             <div class="col-md-12 mt-3 text-center">
-                                <p class="mb-0 h6"><span id="div-message1">Are You Want to Edit This</span></p>
+                                <p class="mb-0 h6"><span id="div-message1">Do you wish to overwrite system rating?</span></p>
                             </div>
 
                             <div class=" pt-0" style="border-top: none; padding: 0px 20px 10px 20px; display: block;" id="div_Confirm">
@@ -301,7 +332,7 @@
                             </div>
                             <div class=" pt-0" style="border-top: none; padding: 0px 20px 10px 20px; display: none;" id="div_Success">
                                 <center>
-                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize text-left" id="btnOk" onclick="$('#msgpopup').modal('hide');">OK</button>
+                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize text-left" id="btnOk" onclick="closepopup();">OK</button>
                                 </center>
                             </div>
 
@@ -313,21 +344,21 @@
                         <div class="row">
                             <div class="button-row d-flex mt-4 col-12">
                                 <button class="btn bg-gradient-light mb-0  me-lg-0 me-auto mt-lg-0 mt-2 btn-resize" type="button" onclick="return validateratingprev()" title="Prev">Prev</button>
-                                <button class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2 btn-resize" onclick="return saveGenuinity('linkedIn','visa','Education')" id="btnsubmit" type="button" title="Submit">Submit</button>
+                                <button class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2 btn-resize" onclick="saveGenuinity('linkedIn', 'visa', 'Education');" id="btnsubmit" type="button" title="Submit">Save</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ms-auto my-auto mt-lg-0 mt-4">
+        <%--<div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
                 <div class="modal fade" id="msgpopup" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog" style="max-width: 300px !important; margin-top: 15rem !important;">
                         <div class="modal-content">
 
                             <div class="col-md-12 mt-3 text-center">
-                                <p class="mb-0 h6"><span id="div-message">Save successfully</span></p>
+                                <p class="mb-0 h6"><span id="div-message"> Genuinity Saved successfully</span></p>
                             </div>
 
                             <div class="modal-footer pt-0 text-center" style="border-top: none;">
@@ -339,7 +370,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 
     <!-- Card Profile -->
@@ -360,6 +391,7 @@
            start: 0,
            step: 1,
            connect: [true, false],
+           direction: 'ltr',
            range: {
                min: 0,
                max: 100
@@ -374,12 +406,25 @@
        var inputFormat = document.getElementById('value1');
 
        sliderFormat.noUiSlider.on('update', function (values, handle) {
-
+           
            inputFormat.innerHTML = values[handle];
+
+            var url = window.location.href;
+            hashes = url.split("?")[1];
+           if (hashes != null) {
+           }
+           else {
+               if (document.getElementById("value").innerHTML != "0") {
+                   disabletxtarea();
+               }
+           }
+
        });
 
        inputFormat.addEventListener('change', function () {
-           sliderFormat.noUiSlider.set(this.value);
+         
+           sliderFormat.noUiSlider.set(this.value);    
+           
        });
     </script>
    

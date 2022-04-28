@@ -19,6 +19,13 @@
             background: none;
             border-radius: 1rem;
         }
+
+        .no-border{
+            border: 3px solid #65c6f5;
+            background-color: white !important;
+            color: red !important;
+            box-shadow: none !important;
+        }
     </style>
 
     <style>
@@ -287,6 +294,7 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jobs</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Client</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" id="th_priority" style="display:none;">Priority</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Job Open date </th>
                                     <th class="text-secondary opacity-7"></th>

@@ -12,9 +12,9 @@ namespace Recruiting_API.Models
 {
     class DbConnection
     {
-        private static String _sqlConstring = "Data Source=(local);Initial Catalog=RecruitingApp_DB;Integrated Security=True;pooling=true;max pool size=10000;";
+        //private static String _sqlConstring = "Data Source=(local);Initial Catalog=RecruitingApp_DB;Integrated Security=True;pooling=true;max pool size=10000;";
 
-        //private static String _sqlConstring = "Data Source=198.71.226.2;Initial Catalog=RecruitingApp_TestingDB;Integrated Security=False;pooling=true;max pool size=10000;User ID=Administrator;Password=Reset@123";
+        private static String _sqlConstring = "Data Source=198.71.226.2;Initial Catalog=RecruitingApp_TestingDB;Integrated Security=False;pooling=true;max pool size=10000;User ID=Administrator;Password=Reset@123";
         //private static String _sqlConstring = "Data Source=198.71.226.2;Initial Catalog=RecruitingApp_DB;Integrated Security=False;pooling=true;max pool size=10000;User ID=Administrator;Password=Reset@123";
 
         public static int conn_counter;

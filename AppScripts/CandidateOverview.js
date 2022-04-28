@@ -12,7 +12,8 @@
     
     $('#dropdownMenuButton').css('display', 'none');    
     getcandidateoverviewList("All");
-   
+    localStorage.removeItem("prevPage");
+    localStorage.setItem("prevPage", window.location.href);
 }); 
 
 

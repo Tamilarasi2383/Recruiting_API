@@ -828,8 +828,13 @@
     <Content Include="assets\img\curved-images\Cover16.jpg" />
     <Content Include="assets\img\curved-images\curved-8.jpg" />
     <Content Include="assets\img\curved-images\curved0.jpg" />
+    <Content Include="assets\img\curved-images\curved10.jpg" />
     <Content Include="assets\img\curved-images\curved14.jpg" />
+    <Content Include="assets\img\curved-images\curved31.jpg" />
     <Content Include="assets\img\curved-images\curved6.jpg" />
+    <Content Include="assets\img\curved-images\curvedNew.jpg" />
+    <Content Include="assets\img\curved-images\Final.jpg" />
+    <Content Include="assets\img\curved-images\Verifed-new.jpg" />
     <Content Include="assets\img\curved-images\white-curved.jpeg" />
     <Content Include="assets\img\curved-images\Whitw-Cover.jpg" />
     <Content Include="assets\img\favicon.png" />
@@ -932,6 +937,7 @@
     <Content Include="Images\Comp.png" />
     <Content Include="Images\Default.png" />
     <Content Include="Images\Default_job.png" />
+    <Content Include="Images\Employees\Check.png" />
     <Content Include="Images\Employees\krish.png" />
     <Content Include="Images\Employees\MohanSir.png" />
     <Content Include="Images\Employees\Narmadha.png" />
@@ -982,6 +988,8 @@
     <Content Include="Images\us-dollar.png" />
     <Content Include="Images\US.png" />
     <Content Include="Images\userimg.png" />
+    <Content Include="Images\Verifed-blue.png" />
+    <Content Include="Images\Verifed-org.png" />
     <Content Include="Images\Visa.png" />
     <Content Include="JobList.aspx" />
     <Content Include="JobListindia.aspx" />

@@ -11,6 +11,10 @@
 
     var url = window.location.href;
     hashes = url.split("?")[1];
+
+    localStorage.removeItem("prevPage");
+    localStorage.setItem("prevPage", window.location.href);
+
     if (hashes != null) {
         var hash = hashes.split('&');
         if (hash.length == 1) {
@@ -106,9 +110,29 @@ function successCallBack(key, value) {
             $("#drpJobtitle").append(option);
         }
 
+        if (resData.candDetail.genuinityStatus == null) {
+            $("#imgprofilebg").attr("src", "../assets/img/curved-images/curved0.jpg");
+            $('#liGenuinity').css('display', 'none');
+            
+        }
+        else {
+            $('#liGenuinity').css('display', 'block');
+            var strper = resData.candDetail.recruitergenrating.split('%');
+            if (parseInt(strper[0]) >= 70 && resData.candDetail.genuinityStatus == "true") {
+                $("#imgprofilebg").attr("src", "../assets/img/curved-images/curved10.jpg");
+            }
+            else if (parseInt(strper[0]) < 70 && resData.candDetail.genuinityStatus == "true") {
+                $("#imgprofilebg").attr("src", "../assets/img/curved-images/curved31.jpg");
+            }
+        }
+        
+
         matching_jobs(resData._lstMatchJob);
         if (resData._lstJob.length > 0) {
             committedjobs(resData._lstJob);
+        }
+        else {
+            emptycommittedjobs();
         }
         proofdocuments(resData._lstCandProof);
 
@@ -134,11 +158,156 @@ function successCallBack(key, value) {
         document.getElementById("lblsystemrating").innerHTML = resData.genuinityCheckRating.Overallsystemrating;
         document.getElementById("lblrecruiterrating").innerHTML = resData.genuinityCheckRating.Overallrecruiterrating;
         document.getElementById("lblrecruitercomments").innerHTML = resData.genuinityCheckRating.Remarks;
+        document.getElementById("lbllinkedInpercentage").innerHTML = resData.genuinityCheckRating.LinkedInrating+"%";
+        document.getElementById("lblvisapercentage").innerHTML = resData.genuinityCheckRating.Visarating + "%";
+        document.getElementById("lblEducationpercentage").innerHTML = resData.genuinityCheckRating.Educationrating + "%";
+
+        var str = document.getElementById("lblrecruitercomments").innerHTML;
+        var firstVal = str.substring(0, 40);
+        var secval = str.substring(40, str.length);
+        
+            document.getElementById("less").innerHTML = firstVal;
+            document.getElementById("more").innerHTML = secval;
+        
+        splitgenuinitycomments("linkedIn", "visa", "Education");
         stopLoader();
 
     }
 
 }
+
+
+function readmore(textname, lessname, morename, moredots, morebtn) {
+
+    //var str = document.getElementById(textname).innerHTML;
+    //var firstval = str.substring(0, 35);
+    //var secval = str.substring(35, str.length);
+    ////if (str.length > 15) {
+    //    document.getElementById(lessname).innerHTML = firstval;
+    //    document.getElementById(morename).innerHTML = secval;
+    ////}
+
+    if (textname == "txtlinkedIncommentsQ") {
+        var dots = document.getElementById(moredots);
+        var moreText = document.getElementById(morename);
+        var btnText = document.getElementById(morebtn);
+
+
+        if (dots.style.display === "none") {
+
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        }
+        else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less"
+            moreText.style.display = "inline";
+
+        }
+    }
+
+    if (textname == "txtvisacommentsQ") {
+        var dots = document.getElementById(moredots);
+        var moreText = document.getElementById(morename);
+        var btnText = document.getElementById(morebtn);
+
+
+        if (dots.style.display === "none") {
+
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        }
+        else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less"
+            moreText.style.display = "inline";
+
+        }
+    }
+
+    if (textname == "txtEducationcommentsQ") {
+        var dots = document.getElementById(moredots);
+        var moreText = document.getElementById(morename);
+        var btnText = document.getElementById(morebtn);
+
+
+        if (dots.style.display === "none") {
+
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        }
+        else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less"
+            moreText.style.display = "inline";
+
+        }
+    }
+}
+function splitgenuinitycomments(tabname1, tabname2, tabname3) {
+    if (tabname1 == "linkedIn") {
+        for (var j = 1; j <= 9; j++) {
+            var str = document.getElementById("txtlinkedIncommentsQ" + j).innerHTML;
+            var firstval = str.substring(0, 35);
+            var secval = str.substring(35, str.length);
+
+            document.getElementById("linkedInless" + j).innerHTML = firstval;
+            document.getElementById("linkedInmore" + j).innerHTML = secval;
+        }
+    }
+
+
+
+    if (tabname2 == "visa") {
+        for (var k = 1; k <= 8; k++) {
+            var str = document.getElementById("txtvisacommentsQ" + k).innerHTML;
+            var firstval = str.substring(0, 35);
+            var secval = str.substring(35, str.length);
+
+            document.getElementById("visaless" + k).innerHTML = firstval;
+            document.getElementById("visamore" + k).innerHTML = secval;
+        }
+    }
+
+    if (tabname3 == "Education") {
+        for (var k = 1; k <= 4; k++) {
+            var str = document.getElementById("txtEducationcommentsQ" + k).innerHTML;
+            var firstval = str.substring(0, 35);
+            var secval = str.substring(35, str.length);
+
+            document.getElementById("Educationless" + k).innerHTML = firstval;
+            document.getElementById("Educationmore" + k).innerHTML = secval;
+        }
+    }
+
+}
+
+
+
+function moreDesc() {
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("myBtn");
+
+
+    if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "Read more";
+        moreText.style.display = "none";
+    }
+    else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Read less"
+        moreText.style.display = "inline";
+
+    }
+
+}
+
+
 
 function getCandidateQuestionlist(val) {
 
@@ -154,12 +323,11 @@ function setCandidateQuestion(data) {
     var str = "";
     var str1 = "";
     var str2 = "";
-    var str3 = "";
+
     var j = 1;
     var k = 1;
     var l = 1;
-    var h = "Yes";
-    var n = "No";
+
 
     $.each(data, function (key, item) {
 
@@ -181,10 +349,15 @@ function setCandidateQuestion(data) {
                     "</div>" +
                     "</div>" +
                     "<div class='row'>" +
-                    "<div class='col-12'>" +
-                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>"
+                    "<div class='col-12' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>" +
+                    "<label id='txtlinkedIncommentsQ" + j + "' style='display:none'>"
                     + item.Comments +
                     "</label>" +
+                    "<label id='linkedInless" + j + "'></label> <label id='linkedIndots" + j + "'>.....</label>" +
+                    "<label id='linkedInmore" + j + "' style='display:none'></label>" +
+                    "<a href='javascript:;' onclick=readmore('txtlinkedIncommentsQ','linkedInless" + j + "','linkedInmore" + j + "','linkedIndots" + j + "','linkedInmyBtn" + j + "') id = 'linkedInmyBtn" + j + "' style='color:blue;font-size:13px'>" + " Read more" +
+                    "</a>" +
+
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -208,15 +381,21 @@ function setCandidateQuestion(data) {
                     "</div>" +
                     "</div>" +
                     "<div class='row'>" +
-                    "<div class='col-12'>" +
-                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>"
+                    "<div class='col-12' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>" +
+                    "<label id='txtlinkedIncommentsQ" + j + "' style='display:none'>"
                     + item.Comments +
                     "</label>" +
+                    "<label id='linkedInless" + j + "'></label> <label id='linkedIndots" + j + "'>.....</label>" +
+                    "<label id='linkedInmore" + j + "' style='display:none'></label>" +
+                    "<a href='javascript:;' onclick=readmore('txtlinkedIncommentsQ','linkedInless" + j + "','linkedInmore" + j + "','linkedIndots" + j + "','linkedInmyBtn" + j + "') id = 'linkedInmyBtn" + j + "' style='color:blue;font-size:13px'>" + " Read more" +
+                    "</a>" +
+
                     "</div>" +
                     "</div>" +
                     "</div>" +
                     "</div>";
             }
+
 
         }
         j++;
@@ -245,10 +424,15 @@ function setCandidateQuestion(data) {
                     "</div>" +
                     "</div>" +
                     "<div class='row'>" +
-                    "<div class='col-12'>" +
-                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 0px 19px;'>"
+                    "<div class='col-12' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>" +
+                    "<label id='txtvisacommentsQ" + k + "' style='display:none'>"
                     + item.Comments +
                     "</label>" +
+                    "<label id='visaless" + k + "'></label> <label id='visadots" + k + "'>.....</label>" +
+                    "<label id='visamore" + k + "' style='display:none'></label>" +
+                    "<a href='javascript:;' onclick=readmore('txtvisacommentsQ','visaless" + k + "','visamore" + k + "','visadots" + k + "','visamyBtn" + k + "') id = 'visamyBtn" + k + "' style='color:blue;font-size:13px'>" + " Read more" +
+                    "</a>" +
+
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -270,10 +454,15 @@ function setCandidateQuestion(data) {
                     "</div>" +
                     "</div>" +
                     "<div class='row'>" +
-                    "<div class='col-12'>" +
-                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 0px 19px;'>"
+                    "<div class='col-12' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>" +
+                    "<label id='txtvisacommentsQ" + k + "' style='display:none'>"
                     + item.Comments +
                     "</label>" +
+                    "<label id='visaless" + k + "'></label> <label id='visadots" + k + "'>.....</label>" +
+                    "<label id='visamore" + k + "' style='display:none'></label>" +
+                    "<a href='javascript:;' onclick=readmore('txtvisacommentsQ','visaless" + k + "','visamore" + k + "','visadots" + k + "','visamyBtn" + k + "') id = 'visamyBtn" + k + "' style='color:blue;font-size:13px'>" + " Read more" +
+                    "</a>" +
+
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -296,21 +485,26 @@ function setCandidateQuestion(data) {
                     "<div class='col-12'>" +
                     "<div class='row'>" +
                     "<div class='col-10'>" +
-                    "<label  id='lblvisaquestion" + l + "' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color:#f0f0f0;'>" + l + "." + " " +
+                    "<label  id='lblEducationquestion" + l + "' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 19px 0px;background-color:#f0f0f0;'>" + l + "." + " " +
                     item.Question +
                     "</label>" +
                     "</div>" +
                     "<div class='col-2'>" +
-                    "<label class='form-label' style='display:block;' id='lblvisaanswer" + l + "' style='color:green'>" +
+                    "<label class='form-label' style='display:block;' id='lblEducationanswer" + l + "' style='color:green'>" +
                     "<label style='color:#fefeff;width:35px;margin:15px 0px 0px -16px;' class='icon icon-shape icon-xs rounded-circle bg-gradient-success shadow text-center' >" + "Yes" + "</label>" +
                     "</label>" +
                     "</div>" +
                     "</div>" +
                     "<div class='row'>" +
-                    "<div class='col-12' >" +
-                    "<label id='txtvisacommentsQ' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius:20px 19px 0px 19px;'>"
+                    "<div class='col-12' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>" +
+                    "<label id='txtEducationcommentsQ" + l + "' style='display:none'>"
                     + item.Comments +
                     "</label>" +
+                    "<label id='Educationless" + l + "'></label> <label id='Educationdots" + l + "'>.....</label>" +
+                    "<label id='Educationmore" + l + "' style='display:none'></label>" +
+                    "<a href='javascript:;' onclick=readmore('txtEducationcommentsQ','Educationless" + l + "','Educationmore" + l + "','Educationdots" + l + "','EducationmyBtn" + l + "') id = 'EducationmyBtn" + l + "' style='color:blue;font-size:13px'>" + " Read more" +
+                    "</a>" +
+
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -332,11 +526,14 @@ function setCandidateQuestion(data) {
                     "</div>" +
                     "</div>" +
                     "<div class='row'>" +
-                    "<div class='col-12'>" +
-
-                    "<label id='txtvisacommentsQ'  style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>"
+                    "<div class='col-12' class='chat-bubble chat-bubble--right11' style='box-shadow:0 20px 27px 0 rgb(0 0 0 / 5%);padding:10px;border-radius: 20px 19px 0px 19px;'>" +
+                    "<label id='txtEducationcommentsQ" + l + "' style='display:none'>"
                     + item.Comments +
                     "</label>" +
+                    "<label id='Educationless" + l + "'></label> <label id='Educationdots" + l + "'>.....</label>" +
+                    "<label id='Educationmore" + l + "' style='display:none'></label>" +
+                    "<a href='javascript:;' onclick=readmore('txtEducationcommentsQ','Educationless" + l + "','Educationmore" + l + "','Educationdots" + l + "','EducationmyBtn" + l + "') id = 'EducationmyBtn" + l + "' style='color:blue;font-size:13px'>" + " Read more" +
+                    "</a>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -348,16 +545,6 @@ function setCandidateQuestion(data) {
     $("#div_Education_question").append(str2);
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 function getcandidateFeedback(jobVal) {
@@ -396,6 +583,7 @@ function matching_jobs(data) {
     $('#div-matchjobs').empty();
     $('#div-matchjobs').append(str1);
 }
+
 function getcandidateProfile(candVal) {
     var TWE_Id = getSession('TWE_ID');
 
@@ -438,10 +626,25 @@ function committedjobs(lstCommit) {
         "<a href='javascript:;' onclick=addJob(); >" +
         "<i class='fa fa-plus text-secondary mb-3'></i>" +
         "<h5 class=' text-secondary'>Add to Job </h5>" +
+        "</a></div></div></div></div>";    
+
+    $('#div_committed').empty();
+    $('#div_committed').append(strData);
+}
+
+function emptycommittedjobs() {
+    var strData = "<div class='row'>" +
+        "<div class='col-xl-3 col-md-6 mb-3'>" +
+        "<div class='card h-100 card-plain border'>" +
+        "<div class='card-body d-flex flex-column justify-content-center text-center'>" +
+        "<a href='javascript:;' onclick=addJob(); >" +
+        "<i class='fa fa-plus text-secondary mb-3'></i>" +
+        "<h5 class=' text-secondary'>Add to Job </h5>" +
         "</a></div></div></div></div>";
 
     $('#div_committed').empty();
     $('#div_committed').append(strData);
+
 }
 
 
@@ -1027,7 +1230,7 @@ function assignedJobs(jobData) {
     }
 
     str += "</div>";
-
+    
     $('#div_assignjob').empty();
     $('#div_assignjob').append(str);
 
@@ -1172,22 +1375,27 @@ function downloadFile(a) {
     if ((a.id).includes("Resume")) {
         fileName = "Resume" + "/" + $("#" + a.id).text();
     }
-    else if ((a.id).includes("Driving Licence")) {
-        fileName = "Driving Licence" + "/" + $("#" + a.id).text();
+    else if ((a.id).includes("Driving")) {
+        fileName = "Driving_Licence" + "/" + $("#" + a.id).text();
     }
     else if ((a.id).includes("Visa")) {
         fileName = "Visa" + "/" + $("#" + a.id).text();
     }
     else if ((a.id).includes("Others")) {
-        fileName = "OtherDocuments" + "/" + $("#" + a.id).text();
+        fileName = "Other_Documents" + "/" + $("#" + a.id).text();
     }
 
-    //window.location.href = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
-    //var str = "https://huntcrew.testing.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
-    //window.open(str, "_blank");
+   
 
-    var str = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
+
+
+
+    //window.location.href = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
+    var str = "https://huntcrew.testing.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
     window.open(str, "_blank");
+
+    //var str = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
+    //window.open(str, "_blank");
 
     //window.location.href = "/api/FileAPI/GetFile?fileName=" + fileName;
 
@@ -1202,23 +1410,23 @@ function filedownload(a) {
     if ((lblname.text()).includes("Resume")) {
         fileName = "Resume" + "/" + lblname.text();
     }
-    else if ((lblname.text()).includes("Driving Licence")) {
-        fileName = "Driving Licence" + "/" + lblname.text();
+    else if ((lblname.text()).includes("Driving")) {
+        fileName = "Driving_Licence" + "/" + lblname.text();
     }
     else if ((lblname.text()).includes("Visa")) {
         fileName = "Visa" + "/" + lblname.text();
     }
     else if ((lblname.text()).includes("Others")) {
-        fileName = "OtherDocuments" + "/" + lblname.text();
+        fileName = "Other_Documents" + "/" + lblname.text();
     }
 
     //window.location.href = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
 
     //window.location.href = "/api/FileAPI/GetFile?fileName=" + fileName;
-    //var str = "https://huntcrew.testing.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
-    //window.open(str, "_blank");
-
-    var str = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
+    var str = "https://huntcrew.testing.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
     window.open(str, "_blank");
+
+    //var str = "http://huntcrew.techwaukee.com/api/FileAPI/GetFile?fileName=" + fileName;
+    //window.open(str, "_blank");
 
 }

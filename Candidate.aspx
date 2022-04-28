@@ -19,6 +19,14 @@
         .hidden {
             display: none !important;
         }
+        .zm:hover {
+    color:#7abff3 !important;
+    transform: scale(0.9);
+    box-shadow: none;
+    cursor:pointer;
+   
+
+}
     </style>
 
     <div class="bg-overlay loader_cls">
@@ -73,7 +81,7 @@
                     <div class="row">
                         <div class="col-6">                            
                             <label class="form-label">Email ID</label><span style="color: red;">*</span>
-                            <input class="form-control" type="text" placeholder="Enter Candidate's Email ID" id="txtEmailid" onblur="ValidateEmail('txtEmailid');">
+                            <input class="form-control" type="text" placeholder="Enter Candidate's Email ID" id="txtEmailid" onblur="setGenuinityCandidate();"><%--onblur="ValidateEmail('txtEmailid');"--%>
                         </div>
                         <div class="col-6">
                             <div class="col-md-12">
@@ -89,7 +97,7 @@
                                     </div>--%>
                                 </div>
                             </div>
-                            <input class="form-control" type="text" placeholder="Enter Candidate's contact number" id="txtContactno" onkeypress="return numValidation(this);">
+                            <input class="form-control" type="text" placeholder="Enter Candidate's contact number" id="txtContactno" onkeypress="return numValidation(this);" onblur="setGenuinityCandidate();">
                         </div>
                     </div>
 
@@ -141,7 +149,7 @@
 
                     <div class="col-md-12">
                         <label for="projectName" class="form-label mt-2">Candidate Name</label><span style="color: red;">*</span>
-                        <input type="text" class="form-control" id="txtCandidatename" placeholder="Candidate Name">
+                        <input type="text" class="form-control" id="txtCandidatename" placeholder="Candidate Name" onblur="setGenuinityCandidate();">
                     </div>
 
                     <div class="row mt-4">
@@ -843,7 +851,8 @@
                                 <div class="form-check" style="float: right;display:none;" id="div_genuinity">
                                     <input class="form-check-input" type="checkbox" value="" name="chkgencheck" id="chkgencheck" disabled="disabled" >
                                     <%--<a class="custom-control-label" for="customCheck1" style="color:#0400ff;">Genuinity Check</a>--%>
-                                    <label class="custom-control-label" for="customCheck1" style="color:#0400ff;" onclick="gotoGenuinity()">Genuinity Check</label>
+                                    <label class="custom-control-label zm" for="customCheck1" style="color:#0400ff;" onclick="gotoGenuinity()">Genuinity Check</label>
+                                    <label id="lblgenvalue"></label>
                                 </div>
                             </div>
                         </div>
@@ -859,8 +868,14 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class=" justify-content-end mt-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class=" justify-content-end mt-4">
+                            <span class="text-xs text-secondary mb-0">Genuinity rating should be above 70% for TL submittion</span>
+                       </div>
+                    </div>
+                         <div class="col-6">
+                              <div class=" justify-content-end mt-4">
                         <button type="button" name="button" class="btn bg-gradient-secondary m-0 btn-resize" style="display:none;">Back</button>
                         <button type="button" name="button" class="btn bg-gradient-success m-0 ms-2 btn-resize" id="btnGenuinity" onclick="openGenuinity();" style="float: right;display:none;">Genuinity Check</button>
                         <button type="button" name="button" class="btn bg-gradient-warning m-0 ms-2 btn-resize" id="btnSave" onclick="saveCandidate('Save');" style="float: right;">Save</button>
@@ -868,6 +883,11 @@
                         <button type="button" name="button" class="btn bg-gradient-primary m-0 ms-2 btn-resize" id="btnDraft" style="float: right;" onclick="saveCandidate('Draft');">Draft</button>
                         <button type="button" name="button" class="btn bg-gradient-secondary m-0 ms-2 btn-resize" id="btnPipeline" style="float: right;display:none;" onclick="saveCandidate('Pipeline');">Pipeline</button>
                     </div>
+                        </div>
+
+                    </div>
+                    
+                   
                 </div>
             </div>
         </div>
@@ -883,7 +903,7 @@
 
                             <div class="modal-footer pt-0 text-center" style="border-top: none;">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize" id="btnOk" onclick="$('#msgpopup').modal('hide');">Ok</button>
+                                    <button type="button" class="btn bg-gradient-primary mb-0 btn-resize" id="btnOk">Ok</button>
                                 </div>
                             </div>
                         </div>

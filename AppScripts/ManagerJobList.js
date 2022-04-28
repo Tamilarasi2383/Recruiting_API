@@ -234,7 +234,7 @@ function getJoblist(tileValue, filtertype) {
         $("#lblTotaljobsus").removeClass("text-white");
         $("#lblTotaljobsvalueus").removeClass("text-white");
         $('#div_duration').css('display', 'none');
-        strTile = "";
+        strTile = "Open";
         $('#lblTableheader').text("Jobs List-Open Jobs");
     }
 
@@ -344,122 +344,133 @@ function createJobTable(data) {
         document.getElementById("btnNewJob").style.display = "none";
     }
 
-    $.each(data, function (key, item) {
+    
+    if (strTile == "Open") {
+        
+        $('#th_priority').css('display', 'block');
 
-        var assigneduser = item.Assigned_To.includes(getSession('TWE_ID'));
+        $.each(data, function (key, item) {
 
-        if (item.Jobcode == "") {
+            var assigneduser = item.Assigned_To.includes(getSession('TWE_ID'));
 
-        } else {
-            strTable += "<tr class='divControl' style='cursor:pointer;'><td onclick=gotojobpage('" + item.Jobcode +"');><div class='d-flex px-2 py-1'>" +
-                "<div><img src='" + item.JobMediaPath + "' class='avatar avatar-sm me-3'></div>" +
+            if (item.Jobcode == "") {
 
-                "<div class='d-flex flex-column justify-content-center'>" +
+            } else {
+                strTable += "<tr class='divControl' style='cursor:pointer;'><td onclick=gotojobpage('" + item.Jobcode + "');><div class='d-flex px-2 py-1'>" +
+                    "<div><img src='" + item.JobMediaPath + "' class='avatar avatar-sm me-3'></div>" +
 
-                "<label class='mb-0 text-sm h6' id='lblJobname'>" + item.JobTitle + "</label>" +
-                "<label class='m-0'>" +
-                "<label class='text-secondary' id='lblJobmonth'>" + item.JobDuration + "</label>|<label class='text-secondary' id='lblJobcontract'>" + item.JobType + "</label>|<label class='text-secondary' id='lblJobcity'>" + item.JobState + "</label></label>" +
-                "</div></div></td>";
+                    "<div class='d-flex flex-column justify-content-center'>" +
 
-
-            strTable += "<td onclick=gotojobpage('" + item.Jobcode +"');><div class='col-md- 12'>" +
-                "<label class='text-xs font-weight-bold mb-0 ps-0'>" + item.JobClient + "</label > <br />" +
-                "</div ><div class='col-md-12' style='margin-top: -10px;'>" +
-                "<label class='text-xs text-secondary mb-0 ps-0'>" + item.JobContact + "</label>" +
-                "</div></td>";
+                    "<label class='mb-0 text-sm h6' id='lblJobname'>" + item.JobTitle + "</label>" +
+                    "<label class='m-0'>" +
+                    "<label class='text-secondary' id='lblJobmonth'>" + item.JobDuration + "</label>|<label class='text-secondary' id='lblJobcontract'>" + item.JobType + "</label>|<label class='text-secondary' id='lblJobcity'>" + item.JobState + "</label></label>" +
+                    "</div></div></td>";
 
 
-            if (item.JobStatus == "Open") {
-                strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode +"');>" +
-                    "<span class='badge badge-sm bg-gradient-success'>" + item.JobStatus + "</span></td>";
-            }
+                strTable += "<td onclick=gotojobpage('" + item.Jobcode + "');><div class='col-md- 12'>" +
+                    "<label class='text-xs font-weight-bold mb-0 ps-0'>" + item.JobClient + "</label > <br />" +
+                    "</div ><div class='col-md-12' style='margin-top: -10px;'>" +
+                    "<label class='text-xs text-secondary mb-0 ps-0'>" + item.JobContact + "</label>" +
+                    "</div></td>";
 
-            else if (item.JobStatus == "Close") {
-                strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode +"');>" +
-                    "<span class='badge badge-sm bg-gradient-danger'>" + item.JobStatus + "</span></td>";
-            }
-
-            else if (item.JobStatus == "Hold") {
-                strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode +"');>" +
-                    "<span class='badge badge-sm bg-gradient-secondary'>" + item.JobStatus + "</span></td>";
-            }
+               
 
 
-            strTable += "<td class='align-middle text-center' onclick=gotojobpage('" + item.Jobcode +"');><label class='text-secondary text-xs font-weight-bold mb-0 ps-0' id='lblJobopendate'>" + item.CreatedOn + "</label></td>";
-
-            var strAction1 = "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
-                "<div class='dropdown float-lg-end pe-1'>" +
-                "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
-                "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
-
-                "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>";
-
-            var strAction3 = "</ul></div></div></td></tr>";
-
-            var strAction21 = "";
-
-            var strAction22 = "";
-
-            var strAction23 = "";
-
-            if (getSession('JobView') == "2") {
-                //if (assigneduser == true) {
-                //}
-                //else {
-                strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
-                // }
-            }
-            else if (getSession('JobView') == "1") {
-                if (assigneduser == true) {
-                    strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                if (item.JobPriority == "High") {
+                    strTable += "<td onclick=gotojobpage('" + item.Jobcode + "');><div class='col-md- 12'>" +
+                        "<button type='button' class='btn btn-primary' style='padding: 8px;width: 46px;background-image:linear-gradient(310deg, #ff2c00 0%, #e8d9d9 100%);color: black;'>"+
+                        "<span>" + item.JobPriority+"</span>"+
+                        "<span class='badge badge-md badge-circle border-white text-white' style='top: 16px;left:-11px;background-color: #3d74fc;'>" + item.NoofSubmission +"</span>"+
+                        "</button>" +
+                        "</div></td>";
                 }
-            }
-
-
-            if (getSession('JobEdit') == "2") {
-                //if (assigneduser == true) {
-                //}
-                //else {
-                strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
-                //}
-            }
-
-            else if (getSession('JobEdit') == "1") {
-                if (assigneduser == true) {
-                    strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                else if (item.JobPriority == "Medium") {
+                    strTable += "<td onclick=gotojobpage('" + item.Jobcode + "');><div class='col-md- 12'>" +
+                        "<button type='button' class='btn btn-primary' style='padding: 8px;width: 65px;background-image:linear-gradient(310deg, #fcff00 0%, #f8f328 100%);color: black;'>" +
+                        "<span>" + item.JobPriority + "</span>" +
+                        "<span class='badge badge-md badge-circle border-white text-white' style='top: 16px;left:-11px;background-color: #3d74fc;'>" + item.NoofSubmission + "</span>" +
+                        "</button>" +
+                        "</div></td>";
                 }
-            }
+                else if (item.JobPriority == "Low") {
+                    strTable += "<td onclick=gotojobpage('" + item.Jobcode + "');><div class='col-md- 12'>" +
+                        "<button type='button' class='btn btn-primary' style='padding: 8px;width: 46px;background-image:linear-gradient(310deg,#17ad37,#98ec2d);color: black;'>" +
+                        "<span>" + item.JobPriority + "</span>" +
+                        "<span class='badge badge-md badge-circle border-white text-white' style='top: 16px;left:-11px;background-color: #3d74fc;'>" + item.NoofSubmission + "</span>" +
+                        "</button>" +
+                        "</div></td>";
+                }
 
-            if (strTile == "Feedback") {
-                if (getSession('JobFeedback') == "2") {
+
+                if (item.JobStatus == "Open") {
+                    strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode + "');>" +
+                        "<span class='badge badge-sm bg-gradient-success'>" + item.JobStatus + "</span></td>";
+                }
+
+                else if (item.JobStatus == "Close") {
+                    strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode + "');>" +
+                        "<span class='badge badge-sm bg-gradient-danger'>" + item.JobStatus + "</span></td>";
+                }
+
+                else if (item.JobStatus == "Hold") {
+                    strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode + "');>" +
+                        "<span class='badge badge-sm bg-gradient-secondary'>" + item.JobStatus + "</span></td>";
+                }
+
+
+                strTable += "<td class='align-middle text-center' onclick=gotojobpage('" + item.Jobcode + "');><label class='text-secondary text-xs font-weight-bold mb-0 ps-0' id='lblJobopendate'>" + item.CreatedOn + "</label></td>";
+
+                var strAction1 = "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                    "<div class='dropdown float-lg-end pe-1'>" +
+                    "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                    "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                    "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>";
+
+                var strAction3 = "</ul></div></div></td></tr>";
+
+                var strAction21 = "";
+
+                var strAction22 = "";
+
+                var strAction23 = "";
+
+                if (getSession('JobView') == "2") {
                     //if (assigneduser == true) {
                     //}
                     //else {
-                    
-                    if (strTile == "Feedback") {
-
-                        strAction21 = "";
-                        strAction22 = "";
-
-                        if ($('input[id="serFilter2"]').prop("checked") == true && $('select#drpEmployee option:selected').val() != "-1") {
-                            strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback&createdby=" + $('select#drpEmployee option:selected').val() + "' id='Feedback'>Feedback</a></li>";
-                        }
-                        else {
-                            strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>";
-                        }
-                    }
-                    else {
+                    strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                    // }
+                }
+                else if (getSession('JobView') == "1") {
+                    if (assigneduser == true) {
                         strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
-                        strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
                     }
+                }
 
+
+                if (getSession('JobEdit') == "2") {
+                    //if (assigneduser == true) {
+                    //}
+                    //else {
+                    strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
                     //}
                 }
 
-                else if (getSession('JobFeedback') == "1") {
-                    
+                else if (getSession('JobEdit') == "1") {
                     if (assigneduser == true) {
+                        strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                    }
+                }
+
+                if (strTile == "Feedback") {
+                    if (getSession('JobFeedback') == "2") {
+                        //if (assigneduser == true) {
+                        //}
+                        //else {
+
                         if (strTile == "Feedback") {
+
                             strAction21 = "";
                             strAction22 = "";
 
@@ -470,70 +481,278 @@ function createJobTable(data) {
                                 strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>";
                             }
                         }
+                        else {
+                            strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                            strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                        }
+
+                        //}
                     }
-                    else {
+
+                    else if (getSession('JobFeedback') == "1") {
+
+                        if (assigneduser == true) {
+                            if (strTile == "Feedback") {
+                                strAction21 = "";
+                                strAction22 = "";
+
+                                if ($('input[id="serFilter2"]').prop("checked") == true && $('select#drpEmployee option:selected').val() != "-1") {
+                                    strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback&createdby=" + $('select#drpEmployee option:selected').val() + "' id='Feedback'>Feedback</a></li>";
+                                }
+                                else {
+                                    strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>";
+                                }
+                            }
+                        }
+                        else {
+                            strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                            strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                        }
+                    }
+                }
+
+                strTable += strAction1 + strAction21 + strAction22 + strAction23 + strAction3;
+
+
+                //if (strTile == "Feedback") {
+
+
+                //    strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                //        "<div class='dropdown float-lg-end pe-1'>" +
+                //        "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                //        "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                //        "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
+                //        //"<li><a class='dropdown-item border-radius-md' href='FollowupPageIndia.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
+                //        //" <li><a class='dropdown-item border-radius-md' href='AddJobcode_Ind.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
+                //        " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>" +
+                //        "</ul></div></div></td></tr>";
+
+                //}
+                //else {
+
+                //    if (getSession('Designation') == "4001") {
+
+                //        strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                //            "<div class='dropdown float-lg-end pe-1'>" +
+                //            "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                //            "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                //            "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
+                //            "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
+                //            //" <li><a class='dropdown-item border-radius-md' href='AddJobcode_Ind.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
+                //            "</ul></div></div></td></tr>";
+                //    }
+
+                //    else {
+                //        strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                //            "<div class='dropdown float-lg-end pe-1'>" +
+                //            "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                //            "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                //            "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
+                //            "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
+                //            " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
+                //            "</ul></div></div></td></tr>";
+                //    }
+                //}
+            }
+
+        });
+    }
+    else {
+        $('#th_priority').css('display', 'none');
+        $.each(data, function (key, item) {
+
+            var assigneduser = item.Assigned_To.includes(getSession('TWE_ID'));
+
+            if (item.Jobcode == "") {
+
+            } else {
+                strTable += "<tr class='divControl' style='cursor:pointer;'><td onclick=gotojobpage('" + item.Jobcode + "');><div class='d-flex px-2 py-1'>" +
+                    "<div><img src='" + item.JobMediaPath + "' class='avatar avatar-sm me-3'></div>" +
+
+                    "<div class='d-flex flex-column justify-content-center'>" +
+
+                    "<label class='mb-0 text-sm h6' id='lblJobname'>" + item.JobTitle + "</label>" +
+                    "<label class='m-0'>" +
+                    "<label class='text-secondary' id='lblJobmonth'>" + item.JobDuration + "</label>|<label class='text-secondary' id='lblJobcontract'>" + item.JobType + "</label>|<label class='text-secondary' id='lblJobcity'>" + item.JobState + "</label></label>" +
+                    "</div></div></td>";
+
+
+                strTable += "<td onclick=gotojobpage('" + item.Jobcode + "');><div class='col-md- 12'>" +
+                    "<label class='text-xs font-weight-bold mb-0 ps-0'>" + item.JobClient + "</label > <br />" +
+                    "</div ><div class='col-md-12' style='margin-top: -10px;'>" +
+                    "<label class='text-xs text-secondary mb-0 ps-0'>" + item.JobContact + "</label>" +
+                    "</div></td>";
+
+
+                if (item.JobStatus == "Open") {
+                    strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode + "');>" +
+                        "<span class='badge badge-sm bg-gradient-success'>" + item.JobStatus + "</span></td>";
+                }
+
+                else if (item.JobStatus == "Close") {
+                    strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode + "');>" +
+                        "<span class='badge badge-sm bg-gradient-danger'>" + item.JobStatus + "</span></td>";
+                }
+
+                else if (item.JobStatus == "Hold") {
+                    strTable += "<td class='align-middle text-center text-sm' onclick=gotojobpage('" + item.Jobcode + "');>" +
+                        "<span class='badge badge-sm bg-gradient-secondary'>" + item.JobStatus + "</span></td>";
+                }
+
+
+                strTable += "<td class='align-middle text-center' onclick=gotojobpage('" + item.Jobcode + "');><label class='text-secondary text-xs font-weight-bold mb-0 ps-0' id='lblJobopendate'>" + item.CreatedOn + "</label></td>";
+
+                var strAction1 = "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                    "<div class='dropdown float-lg-end pe-1'>" +
+                    "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                    "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                    "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>";
+
+                var strAction3 = "</ul></div></div></td></tr>";
+
+                var strAction21 = "";
+
+                var strAction22 = "";
+
+                var strAction23 = "";
+
+                if (getSession('JobView') == "2") {
+                    //if (assigneduser == true) {
+                    //}
+                    //else {
+                    strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                    // }
+                }
+                else if (getSession('JobView') == "1") {
+                    if (assigneduser == true) {
                         strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                    }
+                }
+
+
+                if (getSession('JobEdit') == "2") {
+                    //if (assigneduser == true) {
+                    //}
+                    //else {
+                    strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                    //}
+                }
+
+                else if (getSession('JobEdit') == "1") {
+                    if (assigneduser == true) {
                         strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
                     }
                 }
+
+                if (strTile == "Feedback") {
+                    if (getSession('JobFeedback') == "2") {
+                        //if (assigneduser == true) {
+                        //}
+                        //else {
+
+                        if (strTile == "Feedback") {
+
+                            strAction21 = "";
+                            strAction22 = "";
+
+                            if ($('input[id="serFilter2"]').prop("checked") == true && $('select#drpEmployee option:selected').val() != "-1") {
+                                strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback&createdby=" + $('select#drpEmployee option:selected').val() + "' id='Feedback'>Feedback</a></li>";
+                            }
+                            else {
+                                strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>";
+                            }
+                        }
+                        else {
+                            strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                            strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                        }
+
+                        //}
+                    }
+
+                    else if (getSession('JobFeedback') == "1") {
+
+                        if (assigneduser == true) {
+                            if (strTile == "Feedback") {
+                                strAction21 = "";
+                                strAction22 = "";
+
+                                if ($('input[id="serFilter2"]').prop("checked") == true && $('select#drpEmployee option:selected').val() != "-1") {
+                                    strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback&createdby=" + $('select#drpEmployee option:selected').val() + "' id='Feedback'>Feedback</a></li>";
+                                }
+                                else {
+                                    strAction23 = " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>";
+                                }
+                            }
+                        }
+                        else {
+                            strAction21 = "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>";
+                            strAction22 = " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>";
+                        }
+                    }
+                }
+
+                strTable += strAction1 + strAction21 + strAction22 + strAction23 + strAction3;
+
+
+                //if (strTile == "Feedback") {
+
+
+                //    strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                //        "<div class='dropdown float-lg-end pe-1'>" +
+                //        "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                //        "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                //        "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
+                //        //"<li><a class='dropdown-item border-radius-md' href='FollowupPageIndia.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
+                //        //" <li><a class='dropdown-item border-radius-md' href='AddJobcode_Ind.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
+                //        " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>" +
+                //        "</ul></div></div></td></tr>";
+
+                //}
+                //else {
+
+                //    if (getSession('Designation') == "4001") {
+
+                //        strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                //            "<div class='dropdown float-lg-end pe-1'>" +
+                //            "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                //            "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                //            "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
+                //            "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
+                //            //" <li><a class='dropdown-item border-radius-md' href='AddJobcode_Ind.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
+                //            "</ul></div></div></td></tr>";
+                //    }
+
+                //    else {
+                //        strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
+                //            "<div class='dropdown float-lg-end pe-1'>" +
+                //            "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
+                //            "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
+
+                //            "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
+                //            "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
+                //            " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
+                //            "</ul></div></div></td></tr>";
+                //    }
+                //}
             }
 
-            strTable += strAction1 + strAction21 + strAction22 + strAction23 + strAction3;
-
-
-            //if (strTile == "Feedback") {
-
-
-            //    strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
-            //        "<div class='dropdown float-lg-end pe-1'>" +
-            //        "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
-            //        "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
-
-            //        "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
-            //        //"<li><a class='dropdown-item border-radius-md' href='FollowupPageIndia.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
-            //        //" <li><a class='dropdown-item border-radius-md' href='AddJobcode_Ind.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
-            //        " <li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "&mode=Feedback' id='Feedback'>Feedback</a></li>" +
-            //        "</ul></div></div></td></tr>";
-
-            //}
-            //else {
-
-            //    if (getSession('Designation') == "4001") {
-
-            //        strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
-            //            "<div class='dropdown float-lg-end pe-1'>" +
-            //            "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
-            //            "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
-
-            //            "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
-            //            "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
-            //            //" <li><a class='dropdown-item border-radius-md' href='AddJobcode_Ind.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
-            //            "</ul></div></div></td></tr>";
-            //    }
-
-            //    else {
-            //        strTable += "<td class='align-middle'><div class='col-lg-3 col-1 my-auto text-end'>" +
-            //            "<div class='dropdown float-lg-end pe-1'>" +
-            //            "<a class='cursor-pointer' id='dropdownTable' data-bs-toggle='dropdown' aria-expanded='false'>" +
-            //            "<i class='fa fa-ellipsis-v text-secondary'></i> </a>" +
-
-            //            "<ul class='dropdown-menu px-3 py-3 ms-sm-n8 ms-n3' aria-labelledby='dropdownTable'>" +
-            //            "<li><a class='dropdown-item border-radius-md' href='FollowupPage.aspx?id=" + item.Jobcode + "' id='View'>View</a></li>" +
-            //            " <li><a class='dropdown-item border-radius-md' href='AddJobcode.aspx?id=" + item.Jobcode + "' id='Edit'>Edit</a></li>" +
-            //            "</ul></div></div></td></tr>";
-            //    }
-            //}
-        }
-
-    });
-
+        });
+    }
     $("#tblJoblist tbody").append(strTable);
 
 }
 
 
 function gotojobpage(jobid) {
-    if (strTile=="") {
+  
+    if (strTile == "" || strTile == "Open") {
         window.location.href = "FollowupPage.aspx?id=" + jobid;
     }
     else if (strTile == "Feedback") {
